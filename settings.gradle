@@ -1,1 +1,1 @@
-include ':shortycore'
+include ':shortycore', ':shortysample'
