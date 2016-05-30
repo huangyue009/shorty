@@ -7,6 +7,7 @@ import com.shorty.core.http.action.MultiPartAction;
 import com.shorty.core.http.action.ShortyHttpResponse;
 import com.shorty.core.http.base.HttpStack;
 import com.shorty.core.http.constant.HttpMethodType;
+import com.shorty.core.http.multipart.MultipartEntity;
 
 import org.apache.http.Header;
 import org.apache.http.HeaderElement;
@@ -152,7 +153,7 @@ public class HttpClientStack extends HttpStack {
     private static void setEntityIfNonEmptyBody(HttpEntityEnclosingRequestBase httpRequest, HttpAction action)
             throws IOException {
         if (action instanceof MultiPartAction) {
-            final UploadMultipartEntity multipartEntity = ((MultiPartRequest<?>) request).getMultipartEntity();
+            MultipartEntity multipartEntity = ((MultiPartAction) action).getMultipartEntity();
             httpRequest.setEntity(multipartEntity);
         } else {
             byte[] body = action.getBody();
