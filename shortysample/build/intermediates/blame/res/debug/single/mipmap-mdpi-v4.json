@@ -1,6 +1,6 @@
 [
     {
-        "merged": "/Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/res/merged/debug/mipmap-mdpi-v4/ic_launcher.png",
-        "source": "/Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/res/mipmap-mdpi/ic_launcher.png"
+        "merged": "D:\\source\\shorty\\shortysample\\build\\intermediates\\res\\merged\\debug\\mipmap-mdpi-v4\\ic_launcher.png",
+        "source": "D:\\source\\shorty\\shortysample\\src\\main\\res\\mipmap-mdpi\\ic_launcher.png"
     }
 ]

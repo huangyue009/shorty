@@ -1,36 +1,37 @@
 package com.shorty.core.utils;
 
+import android.content.Context;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.os.Environment;
 import android.text.TextUtils;
+import android.text.format.DateFormat;
 import android.util.Log;
 
+import com.google.common.io.Files;
+
 import java.io.*;
+import java.nio.charset.Charset;
 import java.util.Vector;
 
 /**
- * Logger 控制类
  *
+ * Logger 控制类
  * @author yue.huang
- * @since 2015-04-27
+ * @since 2016-05-23
  */
 public class Logger {
     private static final String defaultTag = "Logger";
     public static final boolean DEBUG = false;
-
-    public static class LogContext {
-        String fileName;
-        int lineNumber;
-
-        public String getTag() {
-            return fileName + " (" + lineNumber + ")";
-        }
-    }
+    public static final boolean PRINT_TO_FILE = true;
+    private static String PACKAGE_NAME;
+    private static String APP_VERSION;
+    private static final String DEFAULT_PACKAGE_NAME = "/shorty";
 
     /**
      * 日志类别
      */
     public static enum LogType {
-        // Log.v
-        VERBOSE,
         // Log.d
         DEBUG,
         // Log.i
@@ -39,186 +40,110 @@ public class Logger {
         WARNING,
         // Log.e
         ERROR,
-        // Log.f
-        FILE;
     }
 
-    /**
-     * 记录一条Log.v
-     *
-     * @param msg
-     */
-    public static void v(String msg) {
-        log(LogType.VERBOSE, null, msg);
-    }
+    public static void init(Context context){
+        PACKAGE_NAME = context.getPackageName();
 
-    /**
-     * 记录一条Log.d
-     *
-     * @param msg
-     */
-    public static void d(String msg) {
-        log(LogType.DEBUG, null, msg);
-    }
-
-    /**
-     * 记录一条信息
-     *
-     * @param msg
-     */
-    public static void i(String msg) {
-        log(LogType.INFO, null, msg);
-    }
-
-    /**
-     * 记录一条警告日志
-     *
-     * @param msg
-     */
-    public static void w(String msg) {
-        log(LogType.WARNING, null, msg);
-    }
-
-    /**
-     * 记录一条警告异常
-     *
-     * @param throwable
-     */
-    public static void w(Throwable throwable) {
-        log(LogType.WARNING, null, throwable);
-    }
-
-    /**
-     * 记录一条警告异常
-     *
-     * @param throwable
-     */
-    public static void w(String msg, Throwable throwable) {
-        log(LogType.WARNING, msg, throwable);
-    }
-
-    /**
-     * 记录一条错误信息
-     *
-     * @param msg
-     */
-    public static void e(String msg) {
-        log(LogType.ERROR, null, msg);
-    }
-
-    /**
-     * 记录一条异常日志
-     *
-     * @param throwable
-     */
-    public static void e(Throwable throwable) {
         try {
-            throwable.printStackTrace();
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(PACKAGE_NAME, 0);
+            APP_VERSION = info.versionName;
         } catch (Exception e) {
-
-        }
-
-    }
-
-    /**
-     * 记录一条异常日志
-     *
-     * @param throwable
-     */
-    public static void e(String msg, Throwable throwable) {
-        log(LogType.ERROR, msg, throwable);
-    }
-
-    /**
-     * 记录一条异常日志
-     *
-     * @param msg
-     */
-    public static void f(String msg) {
-//        long ftime = System.currentTimeMillis();
-//        log(LogType.FILE, null, msg + ":t=" + DateUtil.getHMS(ftime) + ":"
-//                + ftime + "\n");
-    }
-
-    /**
-     * 记录一条异常日志
-     *
-     * @param type
-     * @param throwable
-     */
-    private static void log(LogType type, String msg, Throwable throwable) {
-        if (!TextUtils.isEmpty(msg)) {
-            LogContext context = getLogStatus();
-            log(type, context, msg);
-        }
-
-        if (throwable != null) {
-            if (true) {
-                throwable.printStackTrace();
-                return;
-            }
+            e.printStackTrace();
         }
     }
 
-    /**
-     * 记录一条日志
-     *
-     * @param type    日志的类别
-     * @param context 日志上下文
-     * @param msg     日志内容
-     */
-    private synchronized static void log(LogType type, LogContext context, String msg) {
-        if (msg == null) {
-            msg = "null";
+    public static void d(String msg){
+        log(msg, LogType.DEBUG);
+    }
+
+    public static void i(String msg){
+        log(msg, LogType.INFO);
+    }
+
+    public static void w(String msg){
+        log(msg, LogType.WARNING);
+    }
+
+    public static void e(String msg){
+        log(msg, LogType.ERROR);
+    }
+
+    public static void e(Throwable e){
+        Throwable cause = e.getCause();
+        StringBuffer sb = new StringBuffer();
+        while (cause != null) {
+            sb.append(cause.getMessage());
+            cause = cause.getCause();
         }
-        if (context == null) {
-            context = getLogStatus();
-        }
+        log(sb.toString(), LogType.ERROR);
+        e.printStackTrace();
+    }
+
+    private static void log(String msg, LogType type) {
         switch (type) {
             case DEBUG: {
                 if (DEBUG) {
-                    Log.d(context.getTag(), msg);
+                    Log.d(defaultTag, msg);
                 }
-                break;
+                return;
             }
             case ERROR: {
-                Log.e(context.getTag(), msg);
+                Log.e(defaultTag, msg);
+                recordToFile(msg, true);
                 break;
             }
             case INFO: {
-                Log.i(context.getTag(), msg);
-                break;
-            }
-            case VERBOSE: {
-                Log.v(context.getTag(), msg);
+                Log.i(defaultTag, msg);
+                recordToFile(msg, false);
                 break;
             }
             case WARNING: {
-                Log.w(context.getTag(), msg);
+                Log.w(defaultTag, msg);
+                recordToFile(msg, false);
                 break;
             }
             default:
-                break;
+                return;
         }
     }
 
-    private static LogContext getLogStatus() {
-        LogContext logStatus = new LogContext();
+    private static void recordToFile(String msg, boolean isCrash) {
+        if(!PRINT_TO_FILE){
+            return;
+        }
+
+        try {
+            msg = DateFormat.format("yyyy-MM-dd kk:mm:ss", System.currentTimeMillis()).toString()
+                    + ": "
+                    + getLogStatus()
+                    + ":" + msg + "\r\n";
+            String dir = Environment.getExternalStorageDirectory()
+                    + "/log/" + PACKAGE_NAME == null ? DEFAULT_PACKAGE_NAME : PACKAGE_NAME;
+            String fileName = android.os.Build.MODEL
+                    + "_"
+                    + APP_VERSION
+                    + "_"
+                    + android.os.Build.VERSION.RELEASE
+                    + "_"
+                    + DateFormat.format("MMddkk", System.currentTimeMillis()).toString() + ".log";
+
+            Files.append(msg, new File(dir, fileName), Charset.defaultCharset());
+
+            if(isCrash){
+                Files.append(msg, new File(dir, "crash_" + fileName), Charset.defaultCharset());
+            }
+        }catch (Exception e){}
+    }
+
+    private static String getLogStatus() {
         StackTraceElement[] stes = new Throwable().getStackTrace();
         if (stes != null && stes.length >= 4) {
             StackTraceElement caller = stes[3];
-            logStatus.fileName = caller.getFileName();
-            logStatus.lineNumber = caller.getLineNumber();
+            return  caller.getFileName() + "(" + caller.getLineNumber() + ")";
         } else {
-            logStatus.fileName = defaultTag;
+            return defaultTag;
         }
-        return logStatus;
     }
-
-    public interface OnLogAppender {
-        public void onLogAppend(String log);
-    }
-
-
-
 }

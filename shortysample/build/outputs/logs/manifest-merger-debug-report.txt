@@ -1,51 +1,35 @@
 -- Merging decision tree log ---
 manifest
-ADDED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml:1:1-13:12
-	package
-		ADDED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml:2:5-43
-		INJECTED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml
-		INJECTED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml
-	android:versionName
-		INJECTED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml
-		INJECTED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml
+ADDED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml:1:1-13:12
 	xmlns:android
-		ADDED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml:1:11-69
+		ADDED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml:1:11-69
+	package
+		ADDED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml:2:5-43
+		INJECTED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml
+		INJECTED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml
+	android:versionName
+		INJECTED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml
+		INJECTED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml
 	android:versionCode
-		INJECTED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml
-		INJECTED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml
+		INJECTED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml
+		INJECTED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml
 application
-ADDED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml:4:5-11:19
-MERGED from [com.android.support:appcompat-v7:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/AndroidManifest.xml:25:5-20
-MERGED from [com.android.support:support-v4:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:animated-vector-drawable:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.1/AndroidManifest.xml:7:5-20
-MERGED from [com.android.support:support-vector-drawable:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.1/AndroidManifest.xml:7:5-20
-MERGED from [com.android.support:support-v4:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/AndroidManifest.xml:22:5-20
-MERGED from [com.android.support:support-vector-drawable:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.1/AndroidManifest.xml:7:5-20
-MERGED from [com.android.support:support-v4:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/AndroidManifest.xml:22:5-20
-	android:label
-		ADDED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml:7:9-41
+ADDED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml:4:5-11:19
 	android:supportsRtl
-		ADDED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml:8:9-35
+		ADDED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml:8:9-35
+	android:label
+		ADDED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml:7:9-41
 	android:allowBackup
-		ADDED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml:5:9-35
+		ADDED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml:5:9-35
 	android:icon
-		ADDED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml:6:9-43
+		ADDED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml:6:9-43
 	android:theme
-		ADDED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml:9:9-40
+		ADDED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml:9:9-40
 uses-sdk
-INJECTED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml reason: use-sdk injection requested
-MERGED from [com.android.support:appcompat-v7:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/AndroidManifest.xml:21:5-23:78
-MERGED from [com.android.support:support-v4:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:animated-vector-drawable:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/animated-vector-drawable/23.2.1/AndroidManifest.xml:5:5-44
-MERGED from [com.android.support:support-vector-drawable:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.1/AndroidManifest.xml:5:5-43
-MERGED from [com.android.support:support-v4:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/AndroidManifest.xml:20:5-43
-MERGED from [com.android.support:support-vector-drawable:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/support-vector-drawable/23.2.1/AndroidManifest.xml:5:5-43
-MERGED from [com.android.support:support-v4:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/support-v4/23.2.1/AndroidManifest.xml:20:5-43
-	tools:overrideLibrary
-		ADDED from [com.android.support:appcompat-v7:23.2.1] /Users/mac/AndroidStudioProjects/shorty/shortysample/build/intermediates/exploded-aar/com.android.support/appcompat-v7/23.2.1/AndroidManifest.xml:23:9-75
+INJECTED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml reason: use-sdk injection requested
 	android:targetSdkVersion
-		INJECTED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml
-		INJECTED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml
+		INJECTED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml
+		INJECTED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml
 	android:minSdkVersion
-		INJECTED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml
-		INJECTED from /Users/mac/AndroidStudioProjects/shorty/shortysample/src/main/AndroidManifest.xml
+		INJECTED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml
+		INJECTED from D:\source\shorty\shortysample\src\main\AndroidManifest.xml

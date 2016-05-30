@@ -82,20 +82,10 @@ public class ManagerFactory {
                 mMagHash.put(ownerClass.getName(), bm);
                 bm.onCreate(context);
 			} catch (Exception e) {
-				Logger.w(e);
+				Logger.e(e);
 			}
 		}
 		
 		return mMagHash.get(ownerClass.getName());
-	}
-
-	/**
-	 * 手动回收制定的manager
-	 * @param cls
-	 */
-	public void destroyManager(Class<BaseManager> cls) {
-		if(cls != null && mMagHash.containsKey(cls.getName())){
-			mMagHash.remove(cls.getName());
-		}
 	}
 }
