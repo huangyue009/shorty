@@ -91,7 +91,7 @@ public class HttpManager extends BaseManager{
                                 parseClass = HttpManager.this.parseClass;
                             }
                             BaseParse parse = (BaseParse) parseClass.newInstance();
-                            parse.parse(response, action.getHttpActionListener());
+                            parse.parse(response, action.getHttpActionListener());   
                         } catch (Exception e) {
                             Logger.e(e);
                             action.getHttpActionListener().onFailure(-1, "网络请求错误-1");
