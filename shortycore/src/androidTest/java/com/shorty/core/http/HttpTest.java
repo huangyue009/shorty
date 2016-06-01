@@ -19,7 +19,7 @@ public class HttpTest extends InstrumentationTestCase {
     @Override
     protected void setUp() throws Exception {
         super.setUp();
-        hm = (HttpManager) ManagerFactory.getInstance().getManager(getInstrumentation().getContext(), HttpManager.class);
+        hm = (HttpManager) ManagerFactory.getInstance().getManager(HttpManager.class);
     }
 
     public synchronized void testHttpClientRequest() throws InterruptedException {

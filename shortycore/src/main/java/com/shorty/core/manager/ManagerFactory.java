@@ -9,6 +9,8 @@ import java.lang.reflect.Field;
 import java.util.Hashtable;
 import java.util.Iterator;
 
+import static com.google.common.base.Preconditions.checkNotNull;
+
 /**
  * 所有模块Manger的工厂类
  * 
@@ -20,6 +22,13 @@ public class ManagerFactory {
 
 	private ManagerFactory() {
 		mMagHash = new Hashtable<String, BaseManager>();
+	}
+
+	private Context context;
+
+	public static void init(Context context){
+		ManagerFactory factory = getInstance();
+		factory.context = checkNotNull(context).getApplicationContext();
 	}
 
 	/**
@@ -65,9 +74,13 @@ public class ManagerFactory {
 	 * 
 	 * @return
 	 */
-	public BaseManager getManager(Context context, Class<? extends BaseManager> ownerClass) {
+	public BaseManager getManager(Class<? extends BaseManager> ownerClass) {
 		if(ownerClass == null){
 			return null;
+		}
+
+		if(context == null){
+			throw new IllegalArgumentException("Must init ManagerFactory at first");
 		}
 		
 		if(!mMagHash.containsKey(ownerClass.getName())){

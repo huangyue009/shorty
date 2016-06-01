@@ -86,6 +86,6 @@ public class BaseActivity extends Activity {
     @SuppressWarnings("unchecked")
     public <T extends BaseManager> T getManager(
             Class<? extends BaseManager> ownerClass) {
-        return (T) ManagerFactory.getInstance().getManager(getApplicationContext(), ownerClass);
+        return (T) ManagerFactory.getInstance().getManager(ownerClass);
     }
 }

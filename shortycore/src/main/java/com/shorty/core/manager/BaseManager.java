@@ -1,6 +1,5 @@
 package com.shorty.core.manager;
 
-import android.app.ActivityManager;
 import android.content.Context;
 import android.text.TextUtils;
 
@@ -25,8 +24,8 @@ public abstract class BaseManager {
 	 * @return
 	 */
 	@SuppressWarnings("unchecked")
-	public <T extends BaseManager> T getManager(Context context, Class<? extends BaseManager> ownerClass) {
-		return (T) ManagerFactory.getInstance().getManager(context, ownerClass);
+	public <T extends BaseManager> T getManager(Class<? extends BaseManager> ownerClass) {
+		return (T) ManagerFactory.getInstance().getManager(ownerClass);
 	}
 
     /** 任意线程都可显示toast

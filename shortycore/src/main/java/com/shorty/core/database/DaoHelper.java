@@ -1,21 +1,16 @@
 package com.shorty.core.database;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.database.sqlite.SQLiteOpenHelper;
 import android.text.TextUtils;
 
-import com.shorty.core.database.annotation.DatabaseField;
-import com.shorty.core.database.annotation.DatabaseTable;
-import com.shorty.core.utils.FileUtils;
+import com.shorty.core.annotation.DatabaseField;
+import com.shorty.core.annotation.DatabaseTable;
 import com.shorty.core.utils.Logger;
 
-import java.io.File;
 import java.lang.annotation.Annotation;
-import java.lang.reflect.Constructor;
 import java.lang.reflect.Field;
-import java.util.Hashtable;
 
 /**
  * shorty frame Database helper
