@@ -78,7 +78,9 @@ public class Logger {
             cause = cause.getCause();
         }
         log(sb.toString(), LogType.ERROR);
-        e.printStackTrace();
+        if(DEBUG) {
+            e.printStackTrace();
+        }
     }
 
     private static void log(String msg, LogType type) {

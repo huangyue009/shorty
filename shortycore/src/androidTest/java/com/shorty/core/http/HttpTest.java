@@ -2,6 +2,7 @@ package com.shorty.core.http;
 
 import android.test.InstrumentationTestCase;
 
+import com.shorty.core.AsyncInstrumentationTestCase;
 import com.shorty.core.http.action.HttpAction;
 import com.shorty.core.http.action.HttpActionListener;
 import com.shorty.core.http.constant.HttpMethodType;
@@ -11,7 +12,7 @@ import com.shorty.core.testEntry.AdvEntry;
 /**
  * <a href="http://d.android.com/tools/testing/testing_android.html">Testing Fundamentals</a>
  */
-public class HttpTest extends InstrumentationTestCase {
+public class HttpTest extends AsyncInstrumentationTestCase {
     private HttpManager hm;
     public HttpTest() {
     }
@@ -38,17 +39,17 @@ public class HttpTest extends InstrumentationTestCase {
                 @Override
                 public void onSuccess(final AdvEntry result) {
                     assertNotNull(result);
-                    notifyAll();
+                    asyncNotify();
                 }
 
                 @Override
                 public void onFailure(int resultCode, final String error) {
                     assertTrue(error, false);
-                    notifyAll();
+                    asyncNotify();
                 }
             });
 
             hm.submit(action);
-            wait();
+            asyncWait();
     }
 }
