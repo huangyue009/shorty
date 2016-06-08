@@ -41,7 +41,12 @@ public class SubscriberRegistry {
 
     void removeListener(EventListener listener){
         for (Map.Entry<String, CopyOnWriteArraySet<Subscriber>> entry : subscribers.entrySet()) {
-            entry.getValue().remove(listener);
+            for(Subscriber subscriber : entry.getValue()){
+                if(listener.equals(subscriber.getListener())){
+                    entry.getValue().remove(subscriber);
+                }
+            }
+
         }
     }
 

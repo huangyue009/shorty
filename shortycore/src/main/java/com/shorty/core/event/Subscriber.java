@@ -61,5 +61,13 @@ public class Subscriber {
                 });
                 break;
         }
+
+        if(listener.oneTime){
+            bus.removeListener(listener);
+        }
+    }
+
+    public EventListener getListener() {
+        return listener;
     }
 }

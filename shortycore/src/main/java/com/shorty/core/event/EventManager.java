@@ -4,15 +4,13 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.google.common.eventbus.EventBus;
 import com.google.common.util.concurrent.MoreExecutors;
 import com.shorty.core.manager.BaseManager;
 import com.shorty.core.utils.Logger;
 
 import java.util.Iterator;
-import java.util.Map;
-import java.util.concurrent.CopyOnWriteArraySet;
 import java.util.concurrent.Executor;
+import java.util.concurrent.Executors;
 
 /**
  * event bus for listener
@@ -26,7 +24,7 @@ public class EventManager extends BaseManager {
 
     @Override
     public void onCreate(Context context) {
-        executor = MoreExecutors.directExecutor();
+        executor = Executors.newSingleThreadExecutor();
         subscriberRegistry = new SubscriberRegistry();
     }
 
