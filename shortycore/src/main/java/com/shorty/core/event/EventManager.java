@@ -6,6 +6,7 @@ import android.os.Looper;
 
 import com.google.common.util.concurrent.MoreExecutors;
 import com.shorty.core.manager.BaseManager;
+import com.shorty.core.ui.BaseActivity;
 import com.shorty.core.utils.Logger;
 
 import java.util.Iterator;
@@ -51,6 +52,10 @@ public class EventManager extends BaseManager {
 
     public void removeEvent(String event){
         subscriberRegistry.removeEvent(event);
+    }
+
+    public void removeContext(BaseActivity context){
+        subscriberRegistry.removeContext(context.getContextHash());
     }
 
     public void removeListener(EventListener listener){

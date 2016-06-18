@@ -12,11 +12,22 @@ import java.lang.reflect.InvocationTargetException;
 public class Subscriber {
     private EventListener listener;
     private int threadType;
+    private boolean oneTime;
+    private String contextHash;
 
-     public Subscriber(EventListener listener, int threadType){
+     public Subscriber(EventListener listener, int threadType, boolean oneTime){
         this.listener = listener;
          this.threadType = threadType;
+         this.oneTime = oneTime;
      }
+
+    public void setContextHash(String hash){
+        this.contextHash = hash;
+    }
+
+    public String getContextHash(){
+        return contextHash;
+    }
 
     /**
      * send event to listener with setting thread's type
@@ -62,7 +73,7 @@ public class Subscriber {
                 break;
         }
 
-        if(listener.oneTime){
+        if(oneTime){
             bus.removeListener(listener);
         }
     }

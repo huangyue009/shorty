@@ -28,7 +28,7 @@ public class ManagerFactory {
 
 	public static void init(Context context){
 		ManagerFactory factory = getInstance();
-		factory.context = checkNotNull(context).getApplicationContext();
+		factory.context = context;//checkNotNull(context).getApplicationContext();
 	}
 
 	/**

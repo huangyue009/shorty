@@ -1,5 +1,7 @@
 package com.shorty.core.annotation;
 
+import android.content.Context;
+
 import java.lang.annotation.ElementType;
 import java.lang.annotation.Retention;
 import java.lang.annotation.RetentionPolicy;
@@ -18,4 +20,6 @@ public @interface Subscribe {
     int ASYNC_THREAD = 3;
 
     int threadLevel() default DEFAULT;
+    boolean oneTime() default true;
+    String destroyWhenFinish() default "";
 }

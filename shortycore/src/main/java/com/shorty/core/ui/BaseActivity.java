@@ -3,7 +3,10 @@ package com.shorty.core.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v4.app.FragmentActivity;
 
+import com.google.common.hash.HashCode;
+import com.shorty.core.event.EventManager;
 import com.shorty.core.manager.BaseManager;
 import com.shorty.core.manager.ManagerFactory;
 import com.shorty.core.utils.AppUtils;
@@ -18,7 +21,7 @@ import java.io.Serializable;
  * UI Activity基础类，包含数据库和Manager的调用方法
  * Created by yue.huang on 16/4/9.
  */
-public class BaseActivity extends Activity {
+public class BaseActivity extends FragmentActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -28,6 +31,8 @@ public class BaseActivity extends Activity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
+        EventManager eventManager = getManager(EventManager.class);
+        eventManager.removeContext(this);
     }
 
     /**
@@ -87,5 +92,17 @@ public class BaseActivity extends Activity {
     public <T extends BaseManager> T getManager(
             Class<? extends BaseManager> ownerClass) {
         return (T) ManagerFactory.getInstance().getManager(ownerClass);
+    }
+
+    @Override
+    public void finish() {
+        super.finish();
+        EventManager eventManager = getManager(EventManager.class);
+        eventManager.removeContext(this);
+    }
+
+
+    public final String getContextHash(){
+        return Integer.toString(hashCode());
     }
 }

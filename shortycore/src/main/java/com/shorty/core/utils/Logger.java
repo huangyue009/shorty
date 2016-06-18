@@ -22,7 +22,7 @@ import java.util.Vector;
  */
 public class Logger {
     private static final String defaultTag = "Logger";
-    public static final boolean DEBUG = false;
+    public static final boolean DEBUG = true;
     public static final boolean PRINT_TO_FILE = true;
     private static String PACKAGE_NAME;
     private static String APP_VERSION;
@@ -71,7 +71,7 @@ public class Logger {
     }
 
     public static void e(Throwable e){
-        Throwable cause = e.getCause();
+        Throwable cause = e;
         StringBuffer sb = new StringBuffer();
         while (cause != null) {
             sb.append(cause.getMessage());

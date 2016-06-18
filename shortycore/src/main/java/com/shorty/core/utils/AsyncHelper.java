@@ -14,7 +14,7 @@ public class AsyncHelper {
         @Override
         protected Object doInBackground(Object[] objects) {
             ((Runnable)objects[0]).run();
-            return objects[1];
+            return null;
         }
 
         @Override

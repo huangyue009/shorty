@@ -1,8 +1,12 @@
 package com.shorty.core.event;
 
+import android.content.Context;
+import android.text.TextUtils;
+
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Maps;
 import com.shorty.core.annotation.Subscribe;
+import com.shorty.core.ui.BaseActivity;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -19,6 +23,9 @@ public class SubscriberRegistry {
     private final ConcurrentMap<String, CopyOnWriteArraySet<Subscriber>> subscribers =
             Maps.newConcurrentMap();
 
+    private final ConcurrentMap<String, CopyOnWriteArraySet<Subscriber>> contextSubscribers =
+            Maps.newConcurrentMap();
+
     void addEventListener(String event, EventListener listener) throws NoSuchMethodException {
         Subscriber subscriber = getSubscriber(listener);
 
@@ -31,11 +38,27 @@ public class SubscriberRegistry {
         }
 
         eventSubscribers.add(subscriber);
+        //context map
+        eventSubscribers = contextSubscribers.get(event);
+
+        if (eventSubscribers == null) {
+            CopyOnWriteArraySet<Subscriber> newSet = new CopyOnWriteArraySet<Subscriber>();
+            eventSubscribers = MoreObjects.firstNonNull(
+                    contextSubscribers.putIfAbsent(event, newSet), newSet);
+        }
+
+        eventSubscribers.add(subscriber);
     }
 
     void removeEvent(String event){
         if(subscribers.containsKey(event)){
             subscribers.remove(event);
+        }
+    }
+
+    void removeContext(String hash){
+        if(contextSubscribers.containsKey(hash)){
+            contextSubscribers.remove(hash);
         }
     }
 
@@ -46,7 +69,6 @@ public class SubscriberRegistry {
                     entry.getValue().remove(subscriber);
                 }
             }
-
         }
     }
 
@@ -61,12 +83,17 @@ public class SubscriberRegistry {
     private Subscriber getSubscriber(EventListener listener) throws NoSuchMethodException {
         Method method = listener.getClass().getMethod("onEvent", Object.class);
         Annotation annotation = method.getAnnotation(Subscribe.class);
+        Subscriber subscriber = null;
         if(annotation instanceof Subscribe){
-            int threadType = ((Subscribe)annotation).threadLevel();
-            return new Subscriber(listener, threadType);
+            subscriber = new Subscriber(listener, ((Subscribe)annotation).threadLevel(), ((Subscribe)annotation).oneTime());
+            if(TextUtils.isEmpty(((Subscribe)annotation).destroyWhenFinish())){
+                subscriber.setContextHash(((Subscribe)annotation).destroyWhenFinish());
+            }
+        } else {
+            subscriber = new Subscriber(listener, Subscribe.DEFAULT, true);
         }
 
-        return null;
+        return subscriber;
     }
 
     void clean(){
@@ -74,5 +101,10 @@ public class SubscriberRegistry {
             entry.getValue().clear();
         }
         subscribers.clear();
+
+        for (Map.Entry<String, CopyOnWriteArraySet<Subscriber>> entry : contextSubscribers.entrySet()) {
+            entry.getValue().clear();
+        }
+        contextSubscribers.clear();
     }
 }

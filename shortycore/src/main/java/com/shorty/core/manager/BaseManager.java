@@ -38,4 +38,15 @@ public abstract class BaseManager {
 
         AppUtils.showToastInfo(context, text);
     }
+
+	/** 任意线程都可显示toast
+	 * @user yue.huang
+	 * */
+	public void showToast(int res) {
+		if(res > 0 && TextUtils.isEmpty(context.getString(res))){
+			return;
+		}
+
+		AppUtils.showToastInfo(context, context.getString(res));
+	}
 }
