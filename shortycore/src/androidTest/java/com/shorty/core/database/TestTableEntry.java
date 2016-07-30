@@ -8,7 +8,7 @@ import com.shorty.core.annotation.DatabaseTable;
  * Created by yue.huang on 2016/4/14.
  */
 @DatabaseTable(tableName = "test_table")
-public class TestTableEntry extends BaseEntry{
+public class TestTableEntry extends BaseEntry {
     @DatabaseField
     public Integer eid;
     @DatabaseField

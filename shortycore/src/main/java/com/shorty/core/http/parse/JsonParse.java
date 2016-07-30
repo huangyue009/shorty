@@ -4,6 +4,7 @@ import com.google.gson.Gson;
 import com.shorty.core.http.action.HttpActionListener;
 import com.shorty.core.http.action.ShortyHttpResponse;
 import com.shorty.core.http.base.BaseParse;
+import com.shorty.core.utils.Logger;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -29,38 +30,71 @@ public class JsonParse extends BaseParse{
     }
 
     @Override
-    public void parse(ShortyHttpResponse response, HttpActionListener listener) throws JSONException {
-        Type[] types = ((ParameterizedType) listener
+    public void parse(ShortyHttpResponse response, final HttpActionListener listener) throws JSONException {
+        final Type[] types = ((ParameterizedType) listener
                 .getClass()
                 .getGenericSuperclass())
                 .getActualTypeArguments();
         try {
             if (types == null) {
-                listener.onFailure(-2,
-                        "数据转换类型错误！");
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onFailure(-2,
+                                "数据转换类型错误！");
+                    }
+                });
+
             } else{
                 String jsonStr = getContent(response.inputStream);
-                JSONObject json = new JSONObject(jsonStr);
-                Integer result = json.getInt("result");
+                Logger.i("Http resp ->  params: " + jsonStr);
+                final JSONObject json = new JSONObject(jsonStr);
+                final Integer result = json.getInt("result");
                 String message = null;
-                if(result != null && result.intValue() == 1) {
+                if(result != null && (result.intValue() == 1)) {
                     if (!json.isNull("message")) {
                         message = json.getString("message");
                     }
                     if (!json.isNull("data") ) {
-                        listener.onSuccess(gson.fromJson(json.getString("data"), types[0]));
+                        handler.post(new Runnable() {
+                            @Override
+                            public void run() {
+                                try {
+                                    listener.onSuccess(gson.fromJson(json.getString("data"), types[0]));
+                                } catch (Exception e) {
+                                    Logger.e(e);
+                                    listener.onSuccess(null);
+                                }
+                            }
+                        });
+
+                        return;
+                    } else if(result.intValue() == 9){
+                        listener.onSuccess(null);
                         return;
                     }
-                } else if(result != null && result.intValue() != 9){
+                } else if(result != null){
                     if (!json.isNull("message")) {
                         message = json.getString("message");
                     }
                 }
-                listener.onFailure(result, message);
+
+                final String msg = message;
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onFailure(result, msg);
+                    }
+                });
             }
         } catch (Exception e) {
             if (listener != null) {
-                listener.onFailure(-3, "参数解析错误");
+                handler.post(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onFailure(-3, "参数解析错误");
+                    }
+                });
             }
         }
     }

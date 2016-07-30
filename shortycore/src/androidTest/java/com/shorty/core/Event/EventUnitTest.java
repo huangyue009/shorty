@@ -29,6 +29,11 @@ public class EventUnitTest extends AsyncInstrumentationTestCase {
                 System.out.println("testEventDefaultSubmit ok");
                 assertTrue(event.toString(), event != null);
             }
+
+            @Override
+            public void onFailed(int code, String error) {
+
+            }
         });
 
         eventManager.sendEvent("test", "xxxxx");
@@ -44,6 +49,11 @@ public class EventUnitTest extends AsyncInstrumentationTestCase {
                 assertTrue(event.toString(), event != null);
                 asyncNotify();
             }
+
+            @Override
+            public void onFailed(int code, String error) {
+
+            }
         });
 
         eventManager.sendEvent("test", "xxxxx");
@@ -57,6 +67,11 @@ public class EventUnitTest extends AsyncInstrumentationTestCase {
             @Subscribe(threadLevel = Subscribe.BACKGROUND_THREAD)
             public void onEvent(Object event) {
                 assertTrue(event.toString(), event != null);
+            }
+
+            @Override
+            public void onFailed(int code, String error) {
+
             }
         });
 
@@ -73,6 +88,11 @@ public class EventUnitTest extends AsyncInstrumentationTestCase {
                 assertTrue(event.toString(), event != null);
                 asyncNotify();
                 finishAsync();
+            }
+
+            @Override
+            public void onFailed(int code, String error) {
+
             }
         });
 

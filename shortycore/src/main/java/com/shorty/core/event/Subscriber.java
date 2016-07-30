@@ -30,6 +30,56 @@ public class Subscriber {
     }
 
     /**
+     * 
+     * @param bus
+     * @param errorCode
+     * @param error
+     */
+    public void dispatchError(EventManager bus, final int errorCode, final String error){
+        switch (threadType){
+            case Subscribe.DEFAULT:
+                listener.onFailed(errorCode, error);
+                break;
+            case Subscribe.MAIN_THREAD:
+                if(Looper.myLooper() == Looper.getMainLooper()){
+                    listener.onFailed(errorCode, error);
+                } else {
+                    bus.getMainHandler().post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onFailed(errorCode, error);
+                        }
+                    });
+                }
+                break;
+            case Subscribe.BACKGROUND_THREAD:
+                if(Looper.myLooper() == Looper.getMainLooper()){
+                    bus.getExecutor().execute(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onFailed(errorCode, error);
+                        }
+                    });
+                } else {
+                    listener.onFailed(errorCode, error);
+                }
+                break;
+            case Subscribe.ASYNC_THREAD:
+                bus.getExecutor().execute(new Runnable() {
+                    @Override
+                    public void run() {
+                        listener.onFailed(errorCode, error);
+                    }
+                });
+                break;
+        }
+
+        if(oneTime){
+            bus.removeListener(listener);
+        }
+    }
+
+    /**
      * send event to listener with setting thread's type
      * @param bus
      * @param event

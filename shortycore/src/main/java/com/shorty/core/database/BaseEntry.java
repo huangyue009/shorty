@@ -9,6 +9,8 @@ import java.io.Serializable;
  * Created by yue.huang on 2016/4/14.
  */
 public class BaseEntry implements Serializable{
-    @DatabaseField(columnName = "id", isPrimary = true)
-    public Long id;
+    public final static String COLUMN_KEY_ID = "_id";
+
+    @DatabaseField(columnName = COLUMN_KEY_ID, isPrimary = true)
+    public Integer id;
 }

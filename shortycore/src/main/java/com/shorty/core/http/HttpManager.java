@@ -80,30 +80,47 @@ public class HttpManager extends BaseManager{
             } else {
                 stack = new HttpClientStack(userAgent);
             }
+            Logger.i("Http req -> " + action.getUrl() + " params: " + action.getParams());
             final ShortyHttpResponse response = stack.performRequest(action, action.getHeaders());
+            if(action.getHttpActionListener() == null) {
+                return;
+            }
+
             if(response.statusCode == HttpStatus.SC_OK) {
+                try {
+                    Class parseClass = DEFAULT_PARSE_CLASS;
+                    if (HttpManager.this.parseClass != null){
+                        parseClass = HttpManager.this.parseClass;
+                    }
+                    BaseParse parse = (BaseParse) parseClass.newInstance();
+                    parse.setHandler(mHandler);
+                    parse.parse(response, action.getHttpActionListener());
+                } catch (Exception e) {
+                    Logger.e(e);
+                    mHandler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            action.getHttpActionListener().onFailure(-1, "网络请求错误");
+                        }
+                    });
+
+                }
+            } else {
                 mHandler.post(new Runnable() {
                     @Override
                     public void run() {
-                        try {
-                            Class parseClass = DEFAULT_PARSE_CLASS;
-                            if (HttpManager.this.parseClass != null){
-                                parseClass = HttpManager.this.parseClass;
-                            }
-                            BaseParse parse = (BaseParse) parseClass.newInstance();
-                            parse.parse(response, action.getHttpActionListener());
-                        } catch (Exception e) {
-                            Logger.e(e);
-                            action.getHttpActionListener().onFailure(-1, "网络请求错误-1");
-                        }
+                        action.getHttpActionListener().onFailure(response.statusCode, "网络请求错误" + response.statusCode);
                     }
                 });
-            } else {
-                action.getHttpActionListener().onFailure(response.statusCode, "网络请求错误" + response.statusCode);
             }
         } catch (Exception e) {
             Logger.e(e);
-            action.getHttpActionListener().onFailure(-1, "网络请求错误-1");
+            mHandler.post(new Runnable() {
+                @Override
+                public void run() {
+                    action.getHttpActionListener().onFailure(-1, "网络请求失败");
+                }
+            });
         }
     }
 }

@@ -1,6 +1,5 @@
 package com.shorty.core.http.action;
 
-import com.shorty.core.http.constant.HttpMethodType;
 import com.shorty.core.utils.Logger;
 
 import org.json.JSONException;
@@ -28,16 +27,18 @@ public class HttpAction {
     private HashMap<String, String> params;
     private JSONObject obj;
     private HttpActionListener<?> actionListener;
-    private HttpMethodType type;
     private boolean shouldGzip = true;
     private boolean isSSL = true;
     private long timeoutMs;
     private Map<String, String> headers;
+    private String url;
+    private int requestType;
 
-    public HttpAction(HttpMethodType type) {
+    public HttpAction(String url, int requestType) {
         params = new HashMap<String, String>();
         headers = new HashMap<String, String>();
-        this.type = type;
+        this.url = url;
+        this.requestType = requestType;
     }
 
     public Map<String, String> getHeaders(){
@@ -53,8 +54,13 @@ public class HttpAction {
      *
      * @return
      */
-    public HttpMethodType getHttpMethodType() {
-        return type;
+    public int getRequestType() {
+        return requestType;
+    }
+
+
+    public String getUrl(){
+        return this.url;
     }
     /**
      * 设置提交结果监听

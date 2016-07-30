@@ -69,6 +69,10 @@ public class ManagerFactory {
         }
     }
 
+	public Context getContext(){
+		return context;
+	}
+
 	/**
 	 * 获得Manager的方法，manager Name 需要通过 ManagerFactory的常量获得，详见ManagerFactory常量
 	 * 

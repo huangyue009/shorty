@@ -5,7 +5,6 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.app.FragmentActivity;
 
-import com.google.common.hash.HashCode;
 import com.shorty.core.event.EventManager;
 import com.shorty.core.manager.BaseManager;
 import com.shorty.core.manager.ManagerFactory;
@@ -22,6 +21,7 @@ import java.io.Serializable;
  * Created by yue.huang on 16/4/9.
  */
 public class BaseActivity extends FragmentActivity {
+    protected boolean isResumed = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -33,6 +33,11 @@ public class BaseActivity extends FragmentActivity {
         super.onDestroy();
         EventManager eventManager = getManager(EventManager.class);
         eventManager.removeContext(this);
+    }
+
+    @Override
+    public void onBackPressed() {
+        finish();
     }
 
     /**
@@ -52,15 +57,6 @@ public class BaseActivity extends FragmentActivity {
         }
 
         startActivity(intent);
-    }
-
-    /**
-     * show toast with msg
-     *
-     * @param msg
-     */
-    public void showToast(String msg) {
-        AppUtils.showToastInfo(this, msg);
     }
 
     /**
@@ -101,6 +97,17 @@ public class BaseActivity extends FragmentActivity {
         eventManager.removeContext(this);
     }
 
+    @Override
+    protected void onPause() {
+        super.onPause();
+        isResumed = false;
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        isResumed = true;
+    }
 
     public final String getContextHash(){
         return Integer.toString(hashCode());

@@ -1,6 +1,5 @@
 package com.shorty.core.http.action;
 
-import com.shorty.core.http.constant.HttpMethodType;
 import com.shorty.core.http.multipart.FilePart;
 import com.shorty.core.http.multipart.MultipartEntity;
 import com.shorty.core.http.multipart.StringPart;
@@ -16,8 +15,8 @@ import java.io.File;
 public class MultiPartAction extends HttpAction{
     private MultipartEntity multipartEntity;
 
-    public MultiPartAction(HttpMethodType type) {
-        super(type);
+    public MultiPartAction(String url, int requestType) {
+        super(url, requestType);
         multipartEntity = new MultipartEntity();
     }
 

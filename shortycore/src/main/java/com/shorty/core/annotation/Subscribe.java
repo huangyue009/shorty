@@ -21,5 +21,4 @@ public @interface Subscribe {
 
     int threadLevel() default DEFAULT;
     boolean oneTime() default true;
-    String destroyWhenFinish() default "";
 }

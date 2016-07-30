@@ -4,7 +4,6 @@ import com.shorty.core.http.action.HttpAction;
 import com.shorty.core.http.action.MultiPartAction;
 import com.shorty.core.http.action.ShortyHttpResponse;
 import com.shorty.core.http.base.HttpStack;
-import com.shorty.core.http.constant.HttpMethodType;
 import com.shorty.core.http.multipart.MultipartEntity;
 import com.shorty.core.http.ssl.IgnoreCertTrustManager;
 
@@ -40,8 +39,6 @@ public class HttpConnectionStack extends HttpStack {
 
     @Override
     public ShortyHttpResponse performRequest(HttpAction action, Map<String, String> additionalHeaders) throws IOException, NoSuchAlgorithmException, KeyManagementException {
-        HttpMethodType methodType = action.getHttpMethodType();
-        String url = methodType.URL;
         HashMap<String, String> map = new HashMap<String, String>();
         // chenbo add gzip support,new user-agent
         if (action.isShouldGzip()) {
@@ -51,7 +48,7 @@ public class HttpConnectionStack extends HttpStack {
         // end
         map.putAll(action.getHeaders());
         map.putAll(additionalHeaders);
-        URL parsedUrl = new URL(url);
+        URL parsedUrl = new URL(action.getUrl());
         HttpURLConnection connection = openConnection(parsedUrl, action);
 
         for (String headerName : map.keySet()) {
@@ -114,7 +111,7 @@ public class HttpConnectionStack extends HttpStack {
 
     private void setConnectionParametersForRequest(HttpURLConnection connection,
                                                    HttpAction action) throws IOException {
-        switch (action.getHttpMethodType().type) {
+        switch (action.getRequestType()) {
             case HttpAction.GET:
                 connection.setRequestMethod("GET");
                 break;

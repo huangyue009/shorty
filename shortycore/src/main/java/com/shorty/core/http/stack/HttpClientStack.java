@@ -6,7 +6,6 @@ import com.shorty.core.http.action.HttpAction;
 import com.shorty.core.http.action.MultiPartAction;
 import com.shorty.core.http.action.ShortyHttpResponse;
 import com.shorty.core.http.base.HttpStack;
-import com.shorty.core.http.constant.HttpMethodType;
 import com.shorty.core.http.multipart.MultipartEntity;
 
 import org.apache.http.Header;
@@ -111,19 +110,19 @@ public class HttpClientStack extends HttpStack {
     }
 
     private HttpUriRequest createHttpRequest(HttpAction action) throws IOException {
-        HttpMethodType methodType = action.getHttpMethodType();
-        switch (action.getHttpMethodType().type) {
+        int requestType = action.getRequestType();
+        switch (requestType) {
             case HttpAction.GET:
-                return new HttpGet(methodType.URL);
+                return new HttpGet(action.getUrl());
             case HttpAction.DELETE:
-                return new HttpDelete(methodType.URL);
+                return new HttpDelete(action.getUrl());
             case HttpAction.POST: {
-                HttpPost postRequest = new HttpPost(methodType.URL);
+                HttpPost postRequest = new HttpPost(action.getUrl());
                 setEntityIfNonEmptyBody(postRequest, action);
                 return postRequest;
             }
             case HttpAction.PUT: {
-                HttpPut putRequest = new HttpPut(methodType.URL);
+                HttpPut putRequest = new HttpPut(action.getUrl());
                 setEntityIfNonEmptyBody(putRequest, action);
                 return putRequest;
             }

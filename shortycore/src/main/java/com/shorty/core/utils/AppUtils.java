@@ -9,9 +9,14 @@ package com.shorty.core.utils;
 
 import android.app.ActivityManager;
 import android.content.Context;
+import android.content.Intent;
+import android.content.pm.PackageInfo;
+import android.content.pm.PackageManager;
+import android.net.Uri;
 import android.os.Handler;
 import android.widget.Toast;
 
+import java.lang.reflect.Field;
 import java.util.List;
 
 /**
@@ -99,5 +104,73 @@ public class AppUtils {
             }
         }
         return null;
+    }
+    /**
+     * 拨打电话
+     */
+    public static void dial(Context context, String tel) {
+        Intent intent = new Intent(Intent.ACTION_DIAL, Uri.parse("tel:" + tel));
+        context.startActivity(intent);
+    }
+
+    /**
+     * 获取版本号
+     *
+     * @return 当前应用的版本号
+     */
+    public static String getAppVersion(Context context) {
+        try {
+            PackageManager manager = context.getPackageManager();
+            PackageInfo info = manager.getPackageInfo(context.getPackageName(), 0);
+            String version = info.versionName;
+            return version;
+        } catch (Exception e) {
+            e.printStackTrace();
+            return null;
+        }
+    }
+
+    /**
+     * 反射参数
+     * @param name
+     * @return
+     */
+    public static Object getField(Object obj, String name){
+        try {
+            Field nameField = obj.getClass().getDeclaredField(name);
+            nameField.setAccessible(true);
+            return nameField.get(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    /**
+     * 反射参数
+     * @param name
+     * @return
+     */
+    public static Object getField(Object obj, Class cls, String name){
+        try {
+            Field nameField = cls.getDeclaredField(name);
+            nameField.setAccessible(true);
+            return nameField.get(obj);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        return null;
+    }
+
+    public static void setField(Class cls, String name, Object obj, Object value){
+        try {
+            Field nameField = cls.getDeclaredField(name);
+            nameField.setAccessible(true);
+            nameField.set(obj, value);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 }

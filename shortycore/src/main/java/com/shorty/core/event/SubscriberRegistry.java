@@ -1,12 +1,10 @@
 package com.shorty.core.event;
 
-import android.content.Context;
 import android.text.TextUtils;
 
 import com.google.common.base.MoreObjects;
 import com.google.common.collect.Maps;
 import com.shorty.core.annotation.Subscribe;
-import com.shorty.core.ui.BaseActivity;
 
 import java.lang.annotation.Annotation;
 import java.lang.reflect.Method;
@@ -36,18 +34,28 @@ public class SubscriberRegistry {
             eventSubscribers = MoreObjects.firstNonNull(
                     subscribers.putIfAbsent(event, newSet), newSet);
         }
-
-        eventSubscribers.add(subscriber);
-        //context map
-        eventSubscribers = contextSubscribers.get(event);
-
-        if (eventSubscribers == null) {
-            CopyOnWriteArraySet<Subscriber> newSet = new CopyOnWriteArraySet<Subscriber>();
-            eventSubscribers = MoreObjects.firstNonNull(
-                    contextSubscribers.putIfAbsent(event, newSet), newSet);
+        //同个key不能用相同对象的listener
+        else {
+            for(Subscriber subscr : eventSubscribers){
+                if(listener.equals(subscr.getListener())){
+                    return;
+                }
+            }
         }
 
         eventSubscribers.add(subscriber);
+        //context map hash 不为空时才索引activity hash 用于destroy时删除
+        if(!TextUtils.isEmpty(listener.contextHash)) {
+            eventSubscribers = contextSubscribers.get(listener.contextHash);
+
+            if (eventSubscribers == null) {
+                CopyOnWriteArraySet<Subscriber> newSet = new CopyOnWriteArraySet<Subscriber>();
+                eventSubscribers = MoreObjects.firstNonNull(
+                        contextSubscribers.putIfAbsent(listener.contextHash, newSet), newSet);
+            }
+
+            eventSubscribers.add(subscriber);
+        }
     }
 
     void removeEvent(String event){
@@ -86,8 +94,8 @@ public class SubscriberRegistry {
         Subscriber subscriber = null;
         if(annotation instanceof Subscribe){
             subscriber = new Subscriber(listener, ((Subscribe)annotation).threadLevel(), ((Subscribe)annotation).oneTime());
-            if(TextUtils.isEmpty(((Subscribe)annotation).destroyWhenFinish())){
-                subscriber.setContextHash(((Subscribe)annotation).destroyWhenFinish());
+            if(TextUtils.isEmpty(listener.contextHash)){
+                subscriber.setContextHash(listener.contextHash);
             }
         } else {
             subscriber = new Subscriber(listener, Subscribe.DEFAULT, true);

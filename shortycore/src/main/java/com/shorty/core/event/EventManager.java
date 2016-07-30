@@ -4,7 +4,6 @@ import android.content.Context;
 import android.os.Handler;
 import android.os.Looper;
 
-import com.google.common.util.concurrent.MoreExecutors;
 import com.shorty.core.manager.BaseManager;
 import com.shorty.core.ui.BaseActivity;
 import com.shorty.core.utils.Logger;
@@ -69,8 +68,25 @@ public class EventManager extends BaseManager {
      */
     public void sendEvent(String event, Object eventObj){
         Iterator<Subscriber> itr = subscriberRegistry.getSubscribers(event);
-        while (itr.hasNext()){
-            itr.next().dispatchEvent(this, eventObj);
+        if(itr != null) {
+            while (itr.hasNext()) {
+                itr.next().dispatchEvent(this, eventObj);
+            }
+        }
+    }
+
+    /**
+     * 发送时间
+     * @param event
+     * @param errorCode
+     * @param error
+     */
+    public void sendEventError(String event, int errorCode, String error){
+        Iterator<Subscriber> itr = subscriberRegistry.getSubscribers(event);
+        if(itr != null) {
+            while (itr.hasNext()) {
+                itr.next().dispatchError(this, errorCode, error);
+            }
         }
     }
 

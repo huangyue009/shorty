@@ -16,4 +16,5 @@ public @interface DatabaseField {
     String columnName() default "";
     boolean isPrimary() default false;
     boolean canBeNull() default true;
+    boolean unioueIndex() default false;
 }
