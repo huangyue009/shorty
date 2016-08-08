@@ -39,6 +39,11 @@ public class HttpAction {
         headers = new HashMap<String, String>();
         this.url = url;
         this.requestType = requestType;
+        if(url.startsWith("https://")){
+            isSSL = true;
+        } else {
+            isSSL = false;
+        }
     }
 
     public Map<String, String> getHeaders(){
@@ -175,7 +180,23 @@ public class HttpAction {
      * @param value
      */
     public void putParam(String key, String value) {
-        params.put(key, value);
+        if(requestType == GET){
+            try {
+                StringBuffer encodedParams = new StringBuffer();
+                encodedParams.append(URLEncoder.encode(key, DEFAULT_PARAMS_ENCODING));
+                encodedParams.append('=');
+                encodedParams.append(URLEncoder.encode(value, DEFAULT_PARAMS_ENCODING));
+                encodedParams.append('&');
+                if(!url.contains("?")){
+                    url += "?";
+                }
+                url += encodedParams.toString();
+            } catch (UnsupportedEncodingException e) {
+                Logger.e(e);
+            }
+        } else {
+            params.put(key, value);
+        }
     }
 
     /**

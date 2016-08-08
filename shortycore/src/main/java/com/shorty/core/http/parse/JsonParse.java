@@ -49,6 +49,10 @@ public class JsonParse extends BaseParse{
                 String jsonStr = getContent(response.inputStream);
                 Logger.i("Http resp ->  params: " + jsonStr);
                 final JSONObject json = new JSONObject(jsonStr);
+                if(((Class)types[0]).getName().equals(json.getClass().getName())){
+                    listener.onSuccess(json);
+                    return;
+                }
                 final Integer result = json.getInt("result");
                 String message = null;
                 if(result != null && (result.intValue() == 1)) {
