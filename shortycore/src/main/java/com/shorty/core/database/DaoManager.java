@@ -24,7 +24,7 @@ public class DaoManager extends BaseManager {
     private DaoHelper helper;
     private HashMap<String, TableEntry> entryIndexMap;
 
-    private static final String DB_NAME = "dvr_rj";
+    private static final String DB_NAME = "roiland_air_cleaner";
     private static final int DB_VERSION = 1;
 
     @Override

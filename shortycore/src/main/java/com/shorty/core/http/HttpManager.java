@@ -17,6 +17,10 @@ import com.shorty.core.http.stack.HttpConnectionStack;
 import com.shorty.core.manager.BaseManager;
 import com.shorty.core.utils.Logger;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStream;
+import java.io.InputStreamReader;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.concurrent.ExecutorService;
@@ -78,7 +82,7 @@ public class HttpManager extends BaseManager{
             if(Build.VERSION.SDK_INT >= 14) {
                 stack = new HttpConnectionStack(userAgent);
             } else {
-                stack = new HttpClientStack(userAgent);
+                stack = new HttpClientStack();
             }
             Logger.i("Http req -> " + action.getUrl() + " params: " + action.getParams());
             final ShortyHttpResponse response = stack.performRequest(action, action.getHeaders());
@@ -92,6 +96,11 @@ public class HttpManager extends BaseManager{
                     if (HttpManager.this.parseClass != null){
                         parseClass = HttpManager.this.parseClass;
                     }
+
+                    if(action.getParseClass() != null){
+                        parseClass = action.getParseClass();
+                    }
+
                     BaseParse parse = (BaseParse) parseClass.newInstance();
                     parse.setHandler(mHandler);
                     parse.parse(response, action.getHttpActionListener());
@@ -123,4 +132,5 @@ public class HttpManager extends BaseManager{
             });
         }
     }
+
 }

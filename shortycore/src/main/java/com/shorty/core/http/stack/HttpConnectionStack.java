@@ -53,7 +53,6 @@ public class HttpConnectionStack extends HttpStack {
 
         for (String headerName : map.keySet()) {
             connection.addRequestProperty(headerName, map.get(headerName));
-
         }
 
 //        if (request instanceof MultiPartRequest) {

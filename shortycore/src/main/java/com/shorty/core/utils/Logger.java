@@ -116,27 +116,29 @@ public class Logger {
             return;
         }
 
-        try {
-            msg = DateFormat.format("yyyy-MM-dd kk:mm:ss", System.currentTimeMillis()).toString()
-                    + ": "
-                    + getLogStatus()
-                    + ":" + msg + "\r\n";
-            String dir = Environment.getExternalStorageDirectory()
-                    + "/log/" + PACKAGE_NAME == null ? DEFAULT_PACKAGE_NAME : PACKAGE_NAME;
-            String fileName = android.os.Build.MODEL
-                    + "_"
-                    + APP_VERSION
-                    + "_"
-                    + android.os.Build.VERSION.RELEASE
-                    + "_"
-                    + DateFormat.format("MMddkk", System.currentTimeMillis()).toString() + ".log";
-
-            Files.append(msg, new File(dir, fileName), Charset.defaultCharset());
-
-            if(isCrash){
-                Files.append(msg, new File(dir, "crash_" + fileName), Charset.defaultCharset());
-            }
-        }catch (Exception e){}
+//        try {
+//            msg = DateFormat.format("yyyy-MM-dd kk:mm:ss", System.currentTimeMillis()).toString()
+//                    + ": "
+//                    + getLogStatus()
+//                    + ":" + msg + "\r\n";
+//            String dir = Environment.getExternalStorageDirectory()
+//                    + "/log" + (PACKAGE_NAME == null ? DEFAULT_PACKAGE_NAME : PACKAGE_NAME);
+//            String fileName = android.os.Build.MODEL
+//                    + "_"
+//                    + APP_VERSION
+//                    + "_"
+//                    + android.os.Build.VERSION.RELEASE
+//                    + "_"
+//                    + DateFormat.format("MMddkk", System.currentTimeMillis()).toString() + ".log";
+//
+//            Files.append(msg, new File(dir, fileName), Charset.defaultCharset());
+//
+//            if(isCrash){
+//                Files.append(msg, new File(dir, "crash_" + fileName), Charset.defaultCharset());
+//            }
+//        }catch (Exception e){
+////            e.printStackTrace();
+//        }
     }
 
     private static String getLogStatus() {

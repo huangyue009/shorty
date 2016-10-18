@@ -1,5 +1,6 @@
 package com.shorty.core.http.action;
 
+import com.shorty.core.http.base.BaseParse;
 import com.shorty.core.utils.Logger;
 
 import org.json.JSONException;
@@ -24,18 +25,19 @@ public class HttpAction {
     protected static String DEFAULT_PARAMS_ENCODING = "UTF-8";
     private static final long DEFAULT_TIMEOUT_MS = 15000;
 
-    private HashMap<String, String> params;
+    protected HashMap<String, Object> params;
     private JSONObject obj;
     private HttpActionListener<?> actionListener;
     private boolean shouldGzip = true;
     private boolean isSSL = true;
     private long timeoutMs;
-    private Map<String, String> headers;
+    protected Map<String, String> headers;
     private String url;
     private int requestType;
+    private Class<? extends BaseParse> parseClass;
 
     public HttpAction(String url, int requestType) {
-        params = new HashMap<String, String>();
+        params = new HashMap<String, Object>();
         headers = new HashMap<String, String>();
         this.url = url;
         this.requestType = requestType;
@@ -46,12 +48,30 @@ public class HttpAction {
         }
     }
 
+    public HttpAction(String url, int requestType, Class<? extends BaseParse> parseClass) {
+        params = new HashMap<String, Object>();
+        headers = new HashMap<String, String>();
+        this.url = url;
+        this.requestType = requestType;
+        this.parseClass = parseClass;
+        if(url.startsWith("https://")){
+            isSSL = true;
+        } else {
+            isSSL = false;
+        }
+    }
+
+
     public Map<String, String> getHeaders(){
         return headers;
     }
 
     public void setHeader(String key, String value){
         headers.put(key, value);
+    }
+
+    public Class<? extends BaseParse> getParseClass(){
+        return parseClass;
     }
 
     /**
@@ -65,6 +85,9 @@ public class HttpAction {
 
 
     public String getUrl(){
+        if(url.endsWith("&")){
+            url = url.substring(0, url.length() - 1);
+        }
         return this.url;
     }
     /**
@@ -110,7 +133,11 @@ public class HttpAction {
     }
 
     public String getBodyContentType() {
-        return "application/x-www-form-urlencoded; charset=" + getEncoding();
+        if (obj != null) {
+            return "application/json; charset=" + getEncoding();
+        } else {
+            return "application/x-www-form-urlencoded; charset=" + getEncoding();
+        }
     }
 
     /**
@@ -180,6 +207,7 @@ public class HttpAction {
      * @param value
      */
     public void putParam(String key, String value) {
+        params.put(key, value);
         if(requestType == GET){
             try {
                 StringBuffer encodedParams = new StringBuffer();
@@ -194,8 +222,6 @@ public class HttpAction {
             } catch (UnsupportedEncodingException e) {
                 Logger.e(e);
             }
-        } else {
-            params.put(key, value);
         }
     }
 
@@ -204,7 +230,7 @@ public class HttpAction {
      *
      * @return
      */
-    public HashMap<String, String> getParams() {
+    public HashMap<String, Object> getParams() {
         return params;
     }
 
@@ -213,9 +239,17 @@ public class HttpAction {
      *
      */
     public byte[] getBody() {
-        Map<String, String> params = getParams();
-        if (params != null && params.size() > 0) {
-            return encodeParameters(params, getEncoding());
+        if(obj != null){
+            try {
+                return obj.toString().getBytes(getEncoding());
+            } catch (UnsupportedEncodingException e) {
+                Logger.e(e);
+            }
+        } else {
+            Map<String, Object> params = getParams();
+            if (params != null && params.size() > 0) {
+                return encodeParameters(params, getEncoding());
+            }
         }
         return null;
     }
@@ -223,14 +257,14 @@ public class HttpAction {
     /**
      * Converts <code>params</code> into an application/x-www-form-urlencoded encoded string.
      */
-    private byte[] encodeParameters(Map<String, String> params, String paramsEncoding) {
+    private byte[] encodeParameters(Map<String, Object> params, String paramsEncoding) {
         StringBuilder encodedParams = new StringBuilder();
         try {
-            for (Map.Entry<String, String> entry : params.entrySet()) {
+            for (Map.Entry<String, Object> entry : params.entrySet()) {
                 if (entry.getValue() != null) {
                     encodedParams.append(URLEncoder.encode(entry.getKey(), paramsEncoding));
                     encodedParams.append('=');
-                    encodedParams.append(URLEncoder.encode(entry.getValue(), paramsEncoding));
+                    encodedParams.append(URLEncoder.encode(entry.getValue().toString(), paramsEncoding));
                     encodedParams.append('&');
                 }
             }

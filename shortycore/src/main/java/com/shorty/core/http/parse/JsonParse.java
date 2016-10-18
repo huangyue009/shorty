@@ -20,7 +20,7 @@ import java.lang.reflect.Type;
  * parse json to entry
  * Created by yue.huang on 2016/5/24.
  */
-public class JsonParse extends BaseParse{
+public class JsonParse extends BaseParse {
     private static Gson gson;
 
     public JsonParse(){
@@ -45,51 +45,80 @@ public class JsonParse extends BaseParse{
                     }
                 });
 
-            } else{
-                String jsonStr = getContent(response.inputStream);
+            } else {
+                final String jsonStr = getContent(response.inputStream);
                 Logger.i("Http resp ->  params: " + jsonStr);
                 final JSONObject json = new JSONObject(jsonStr);
-                if(((Class)types[0]).getName().equals(json.getClass().getName())){
-                    listener.onSuccess(json);
-                    return;
-                }
-                final Integer result = json.getInt("result");
-                String message = null;
-                if(result != null && (result.intValue() == 1)) {
-                    if (!json.isNull("message")) {
-                        message = json.getString("message");
+                try {
+                    if (((Class) types[0]).getName().equals(json.getClass().getName())) {
+                        listener.onSuccess(json);
+                        return;
                     }
-                    if (!json.isNull("data") ) {
-                        handler.post(new Runnable() {
-                            @Override
-                            public void run() {
-                                try {
-                                    listener.onSuccess(gson.fromJson(json.getString("data"), types[0]));
-                                } catch (Exception e) {
-                                    Logger.e(e);
-                                    listener.onSuccess(null);
+                } catch (Exception e) {
+                }
+                if (!json.isNull("result")) {
+                    final Integer result = json.getInt("result");
+                    String message = null;
+                    if (result != null && (result.intValue() == 1)) {
+                        if (!json.isNull("message")) {
+                            message = json.getString("message");
+                        }
+                        if (!json.isNull("data")) {
+                            handler.post(new Runnable() {
+                                @Override
+                                public void run() {
+                                    try {
+                                        listener.onSuccess(gson.fromJson(json.getString("data"), types[0]));
+                                    } catch (Exception e) {
+                                        Logger.e(e);
+                                        listener.onSuccess(null);
+                                    }
                                 }
+                            });
+
+                            return;
+                        } else if (result.intValue() == 9) {
+                            listener.onSuccess(null);
+                            return;
+                        }
+                    } else if (result != null) {
+                        if (!json.isNull("message")) {
+                            message = json.getString("message");
+                        }
+                    }
+
+                    final String msg = message;
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            listener.onFailure(result, msg);
+                        }
+                    });
+                } else if (!json.isNull("data")) {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                listener.onSuccess(gson.fromJson(json.getString("data"), types[0]));
+                            } catch (Exception e) {
+                                Logger.e(e);
+                                listener.onSuccess(null);
                             }
-                        });
-
-                        return;
-                    } else if(result.intValue() == 9){
-                        listener.onSuccess(null);
-                        return;
-                    }
-                } else if(result != null){
-                    if (!json.isNull("message")) {
-                        message = json.getString("message");
-                    }
+                        }
+                    });
+                }else {
+                    handler.post(new Runnable() {
+                        @Override
+                        public void run() {
+                            try {
+                                listener.onSuccess(gson.fromJson(jsonStr, types[0]));
+                            } catch (Exception e) {
+                                Logger.e(e);
+                                listener.onSuccess(null);
+                            }
+                        }
+                    });
                 }
-
-                final String msg = message;
-                handler.post(new Runnable() {
-                    @Override
-                    public void run() {
-                        listener.onFailure(result, msg);
-                    }
-                });
             }
         } catch (Exception e) {
             if (listener != null) {

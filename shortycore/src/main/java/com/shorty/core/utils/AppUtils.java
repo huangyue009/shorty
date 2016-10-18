@@ -14,7 +14,10 @@ import android.content.pm.PackageInfo;
 import android.content.pm.PackageManager;
 import android.net.Uri;
 import android.os.Handler;
+import android.view.Gravity;
 import android.widget.Toast;
+
+import com.shorty.core.R;
 
 import java.lang.reflect.Field;
 import java.util.List;
@@ -35,6 +38,8 @@ public class AppUtils {
                     mToast = Toast.makeText(cxt, "", Toast.LENGTH_SHORT);
                 }
                 mToast.setText(msg);
+                mToast.setGravity(Gravity.CENTER_HORIZONTAL | Gravity.BOTTOM, 0,
+                        cxt.getResources().getDimensionPixelOffset(R.dimen.toast_marge_bottom));
                 mToast.show();
             }
         });

@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--提示离底部距离-->
+    <dimen name="toast_marge_bottom">18dp</dimen>
+</resources>

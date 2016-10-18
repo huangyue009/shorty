@@ -9,6 +9,7 @@ import com.shorty.core.event.EventManager;
 import com.shorty.core.manager.BaseManager;
 import com.shorty.core.manager.ManagerFactory;
 import com.shorty.core.utils.AppUtils;
+import com.shorty.core.utils.Logger;
 
 import java.io.Serializable;
 
@@ -22,6 +23,7 @@ import java.io.Serializable;
  */
 public class BaseActivity extends FragmentActivity {
     protected boolean isResumed = false;
+    private boolean isFinish = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -57,6 +59,7 @@ public class BaseActivity extends FragmentActivity {
         }
 
         startActivity(intent);
+        Logger.i("MainActivity____redirect");
     }
 
     /**
@@ -93,8 +96,13 @@ public class BaseActivity extends FragmentActivity {
     @Override
     public void finish() {
         super.finish();
+        isFinish = true;
         EventManager eventManager = getManager(EventManager.class);
         eventManager.removeContext(this);
+    }
+
+    public boolean isFinished() {
+        return isFinish;
     }
 
     @Override

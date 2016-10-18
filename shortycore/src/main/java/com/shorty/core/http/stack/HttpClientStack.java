@@ -1,7 +1,5 @@
 package com.shorty.core.http.stack;
 
-import android.net.http.AndroidHttpClient;
-
 import com.shorty.core.http.action.HttpAction;
 import com.shorty.core.http.action.MultiPartAction;
 import com.shorty.core.http.action.ShortyHttpResponse;
@@ -12,7 +10,6 @@ import org.apache.http.Header;
 import org.apache.http.HeaderElement;
 import org.apache.http.HttpEntity;
 import org.apache.http.HttpResponse;
-import org.apache.http.client.HttpClient;
 import org.apache.http.client.methods.HttpDelete;
 import org.apache.http.client.methods.HttpEntityEnclosingRequestBase;
 import org.apache.http.client.methods.HttpGet;
@@ -40,12 +37,7 @@ import java.util.zip.GZIPInputStream;
  * Created by yue.huang on 2016/5/24.
  */
 public class HttpClientStack extends HttpStack {
-    private HttpClient httpClient;
-    private String userAgent;
-
-    public HttpClientStack(String userAgent){
-        this.userAgent = userAgent;
-    }
+    private DefaultHttpClient httpClient;
 
     @Override
     public ShortyHttpResponse performRequest(HttpAction action, Map<String, String> additionalHeaders) throws IOException {
@@ -70,7 +62,7 @@ public class HttpClientStack extends HttpStack {
             }
         } else {
             if(httpClient == null) {
-                httpClient = AndroidHttpClient.newInstance(userAgent);
+                httpClient = new DefaultHttpClient();
             }
         }
 
