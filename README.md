@@ -1,6 +1,6 @@
   shorty是一个快速APP开发的工具套装，能快速的让app拥有http,数据库，事件总线，log工具，ui模板化等基本功能。并能无缝的接入其他继承了BaseManager的工具模块。
   基本模块介绍：
-  1、UI模板基类BaseActivity
+  1、UI模板基类BaseActivity
     提供公用跳转方法redirect，插件模块获得方法getManager(Class<? extents BaseManager>)，eventBus生命周期限制（自动销毁event防止activity生命周期外调用View造成闪退）
     
   2、Http模块
