@@ -12,11 +12,11 @@
         action.putParam("city", "xx");   //设置参数</br>
         action.setHeader("apikey", "xxxxxxx"); //设置header</br>
         action.setHttpActionListener(new HttpActionListener<TestEntry>() {    //TestEntry是经过解析器后得到对象</br>
-            Override</br>
+            @Override</br>
             public void onSuccess(JSONObject result) {  //成功，返回数据对象</br>
             }</br>
 
-            Override</br>
+            @Override</br>
             public void onFailure(int resultCode, String error) { //失败，返回错误和代码</br>
             }</br>
         });</br>
@@ -29,9 +29,9 @@
   3、数据库模块</br>
     <p>
      a、设置生成表
+
       @DatabaseTable(tableName = "t_account")
       public class TestEntry extends BaseEntry {
-    
         @DatabaseField(columnName = "ks")
         public String ks;
    
