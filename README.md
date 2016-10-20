@@ -8,14 +8,18 @@
         HttpManager httpManager = getManager(HttpManager.class);
         //Class<？extents BaseParse> 是自定义解析器的基类，不填第三个参数使用默认JsonParse, 
         HttpAction action = new HttpAction("http://apis.baidu.com/apistore/aqiservice/aqi", HttpAction.GET，Class<？extents BaseParse>);
+
         action.putParam("city", "xx");   //设置参数
+
         action.setHeader("apikey", "xxxxxxx"); //设置header
+
         action.setHttpActionListener(new HttpActionListener<TestEntry>() {    //TestEntry是经过解析器后得到对象
-            @Override
+                                         
+            Override
             public void onSuccess(JSONObject result) {  //成功，返回数据对象
             }
 
-            @Override
+            Override
             public void onFailure(int resultCode, String error) { //失败，返回错误和代码
             }
         });
