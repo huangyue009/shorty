@@ -6,22 +6,25 @@
     
   2、Http模块</br>
     a、如果Activty继承BaseActivity(UI模板基类)</br>
-        HttpManager httpManager = getManager(HttpManager.class);</br>
-        //Class<？extents BaseParse> 是自定义解析器的基类，不填第三个参数使用默认JsonParse, </br>
-        HttpAction action = new HttpAction("http://apis.baidu.com/apistore/aqiservice/aqi", HttpAction.GET，Class<？extents BaseParse>);</br>
-        action.putParam("city", "xx");   //设置参数</br>
-        action.setHeader("apikey", "xxxxxxx"); //设置header</br>
-        action.setHttpActionListener(new HttpActionListener<TestEntry>() {    //TestEntry是经过解析器后得到对象</br>
-            @Override</br>
-            public void onSuccess(JSONObject result) {  //成功，返回数据对象</br>
-            }</br>
+        
+        HttpManager httpManager = getManager(HttpManager.class)；
+        //Class<？extents BaseParse> 是自定义解析器的基类，不填第三个参数使用默认JsonParse, 
+        HttpAction action = new HttpAction("http://apis.baidu.com/apistore/aqiservice/aqi", HttpAction.GET，Class<？extents BaseParse>);
+        action.putParam("city", "xx");   //设置参数
+        action.setHeader("apikey", "xxxxxxx"); //设置header
+        action.setHttpActionListener(new HttpActionListener<TestEntry>() {    //TestEntry是经过解析器后得到对象
+            @Override
+            public void onSuccess(JSONObject result) {  //成功，返回数据对象
+            }
+                                         
+            @Override<
+            public void onFailure(int resultCode, String error) { //失败，返回错误和代码
+            }
+        });
+        httpManager.submit(action);
 
-            @Override</br>
-            public void onFailure(int resultCode, String error) { //失败，返回错误和代码</br>
-            }</br>
-        });</br>
-        httpManager.submit(action);</br>
     b、如果Activty没有继承BaseActivity(UI模板基类)</br>
+
           HttpManager httpManager = (HttpManager) ManagerFactory.getInstance().getManager(HttpManager.class);</br>
           HttpAction action = new HttpAction("http://apis.baidu.com/apistore/aqiservice/aqi", HttpAction.GET);</br>
           httpManager.submit(action)；
