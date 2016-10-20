@@ -1,5 +1,6 @@
-  shorty是一个快速APP开发的工具套装，能快速的让app拥有http,数据库，事件总线，log工具，ui模板化等基本功能。并能无缝的接入其他继承了BaseManager的工具模块。
-  基本模块介绍：</br>
+  shorty是一个快速APP开发的工具套装，能快速的让app拥有http,数据库，事件总线，log工具，ui模板化等基本功能。并能无缝的接入其他继承了 BaseManager 的工具模块。
+  基本模块介绍：
+
   1、UI模板基类BaseActivity</br>
     提供公用跳转方法redirect，插件模块获得方法getManager(Class<? extents BaseManager>)，eventBus生命周期限制（自动销毁event防止activity生命周期外调用View造成闪退）
     
@@ -21,8 +22,21 @@
         });</br>
         httpManager.submit(action);</br>
     b、如果Activty没有继承BaseActivity(UI模板基类)</br>
-        HttpManager httpManager = (HttpManager) ManagerFactory.getInstance().getManager(HttpManager.class);</br>
-        HttpAction action = new HttpAction("http://apis.baidu.com/apistore/aqiservice/aqi", HttpAction.GET);</br>
-        httpManager.submit(action);</br>
-        
-  
+          HttpManager httpManager = (HttpManager) ManagerFactory.getInstance().getManager(HttpManager.class);</br>
+          HttpAction action = new HttpAction("http://apis.baidu.com/apistore/aqiservice/aqi", HttpAction.GET);</br>
+          httpManager.submit(action)；
+
+  3、数据库模块</br>
+    <p>
+     a、设置生成表
+      @DatabaseTable(tableName = "t_account")
+      public class TestEntry extends BaseEntry {
+    
+        @DatabaseField(columnName = "ks")
+        public String ks;
+   
+        @DatabaseField(columnName = COLUMN_USER_NAME, unioueIndex = true)  //unioueIndex标记为索引，当这个标记为ture时有相同的save为替代
+        public String userName;
+      }
+   
+  </p>
