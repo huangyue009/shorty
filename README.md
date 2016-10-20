@@ -1,1 +1,1 @@
-# shorty
+ shorty首先是一个快速开发的工具套装，能快速的让app拥有http,数据库，事件总线，log工具，ui模板化等基本功能。并能无缝的接入其他继承了BaseManager的工具模块。
