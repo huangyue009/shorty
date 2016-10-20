@@ -8,8 +8,11 @@
     a、如果Activty继承BaseActivity(UI模板基类)
         
         HttpManager httpManager = getManager(HttpManager.class)；
-        HttpAction action = new HttpAction("http://apis.baidu.com/apistore/aqiservice/aqi", HttpAction.GET，Class<？extents BaseParse>);//Class<？extents BaseParse> 是自定义解析器的基类，不填第三个参数使用默认JsonParse
-        action.putParam("city", "xx");   //设置参数
+        HttpAction action = new HttpAction("http://apis.baidu.com/apistore/aqiservice/aqi", HttpAction.GET，Class<？extents BaseParse>);
+        
+        Class<？extents BaseParse> 是自定义解析器的基类，不填第三个参数使用默认JsonParse
+        
+        action.putParam("city", "xx");   //设置参数
         action.setHeader("apikey", "xxxxxxx"); //设置header
         action.setHttpActionListener(new HttpActionListener<TestEntry>() {    //TestEntry是经过解析器后得到对象
             @Override
