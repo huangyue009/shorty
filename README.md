@@ -5,18 +5,17 @@
     提供公用跳转方法redirect，插件模块获得方法getManager(Class<? extents BaseManager>)，eventBus生命周期限制（自动销毁event防止activity生命周期外调用View造成闪退）
     
   2、Http模块</br>
-    a、如果Activty继承BaseActivity(UI模板基类)</br>
+    a、如果Activty继承BaseActivity(UI模板基类)
         
         HttpManager httpManager = getManager(HttpManager.class)；
-        HttpAction action = new HttpAction("http://apis.baidu.com/apistore/aqiservice/aqi", HttpAction.GET，Class<？extents BaseParse>);//Class<？extents BaseParse> 是自定义解析器的基类，不填第三个参数使用默认JsonParse
+        HttpAction action = new HttpAction("http://apis.baidu.com/apistore/aqiservice/aqi", HttpAction.GET，Class<？extents BaseParse>);//Class<？extents BaseParse> 是自定义解析器的基类，不填第三个参数使用默认JsonParse
         action.putParam("city", "xx");   //设置参数
         action.setHeader("apikey", "xxxxxxx"); //设置header
         action.setHttpActionListener(new HttpActionListener<TestEntry>() {    //TestEntry是经过解析器后得到对象
             @Override
             public void onSuccess(JSONObject result) {  //成功，返回数据对象
-            }
-                                         
-            @Override<
+            }                      
+            @Override
             public void onFailure(int resultCode, String error) { //失败，返回错误和代码
             }
         });
