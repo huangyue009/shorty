@@ -16,11 +16,9 @@
         action.setHeader("apikey", "xxxxxxx"); //设置header
         action.setHttpActionListener(new HttpActionListener<TestEntry>() {   //TestEntry是经过解析器后得到对象
             @Override
-            public void onSuccess(JSONObject result) {  //成功，返回数据对象
-            }                      
+            public void onSuccess(JSONObject result) {  //成功，返回数据对象}                      
             @Override
-            public void onFailure(int resultCode, String error) { //失败，返回错误和代码
-            }
+            public void onFailure(int resultCode, String error) { //失败，返回错误和代码}
         });
         httpManager.submit(action);
 
