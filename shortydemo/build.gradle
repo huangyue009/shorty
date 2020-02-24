@@ -1,0 +1,63 @@
+apply plugin: 'com.android.application'
+
+def appSetting = rootProject.ext.android
+def dependencieSetting = rootProject.ext.dependencies
+
+android {
+    compileSdkVersion appSetting.compileSdkVersion
+
+    defaultConfig {
+        applicationId "com.shorty.demo"
+        minSdkVersion appSetting.minSdkVersion
+        targetSdkVersion appSetting.targetSdkVersion
+        versionCode appSetting.versionCode
+        versionName appSetting.versionName
+        multiDexEnabled true
+
+        testInstrumentationRunner appSetting.testInstrumentationRunner
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                arguments = [moduleName: project.getName()]
+            }
+        }
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
+        }
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation dependencieSetting.androidx_appcompat
+    implementation dependencieSetting.androidx_constraintlayout
+    testImplementation dependencieSetting.junit
+    androidTestImplementation dependencieSetting.androidx_junit
+    androidTestImplementation dependencieSetting.androidx_espresso
+
+    debugImplementation dependencieSetting.leakcanary
+    releaseImplementation dependencieSetting.leakcanary_no_op
+
+    implementation dependencieSetting.arouter_api
+    annotationProcessor dependencieSetting.arouter_compiler
+
+    annotationProcessor project(path: ':shortyTest')
+    implementation 'com.google.android.material:material:1.1.0'
+    implementation project(path: ':shortyTest')
+    // Optional, if you use support library fragments:
+//    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
+}
+
+ext {
+
+}

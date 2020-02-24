@@ -1,14 +1,23 @@
 apply plugin: 'com.android.library'
 
+def gson = 'com.google.code.gson:gson:2.8.5'
+def junit = 'junit:junit:4.12'
+def guava = 'com.google.guava:guava:28.1-android'
+def compileSdkVer = 26
+
+if (rootProject.ext != null) {
+    def appSetting = rootProject.ext.android
+    def dependencieSetting = rootProject.ext.dependencies
+
+    compileSdkVer = appSetting.compileSdkVersion
+    gson = dependencieSetting.gson
+    guava = dependencieSetting.guava
+}
+
+
 android {
-    compileSdkVersion 19
-    buildToolsVersion '19.1.0'
-    defaultConfig {
-        minSdkVersion 14
-        targetSdkVersion 19
-        versionCode 1
-        versionName "1.0"
-    }
+    compileSdkVersion compileSdkVer
+
     buildTypes {
         release {
             minifyEnabled false
@@ -20,10 +29,9 @@ android {
 }
 
 dependencies {
-    compile fileTree(include: ['*.jar'], dir: 'libs')
-    testCompile 'junit:junit:4.12'
-    compile 'com.google.code.gson:gson:2.6.2'
-    compile 'com.google.guava:guava:19.0'
-    testCompile 'org.json:json:20160212'
-    compile 'com.android.support:support-v4:19.0.1'
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    testImplementation junit
+    implementation gson
+    implementation guava
+    implementation 'androidx.fragment:fragment:1.2.1'
 }

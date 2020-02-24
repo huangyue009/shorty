@@ -3,7 +3,6 @@ package com.shorty.core.ui;
 import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
-import android.support.v4.app.FragmentActivity;
 
 import com.shorty.core.event.EventManager;
 import com.shorty.core.manager.BaseManager;
@@ -12,6 +11,8 @@ import com.shorty.core.utils.AppUtils;
 import com.shorty.core.utils.Logger;
 
 import java.io.Serializable;
+
+import androidx.fragment.app.FragmentActivity;
 
 /**
  * base of activity frame have

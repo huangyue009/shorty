@@ -4,7 +4,6 @@ import com.shorty.core.http.action.HttpAction;
 import com.shorty.core.http.action.MultiPartAction;
 import com.shorty.core.http.action.ShortyHttpResponse;
 import com.shorty.core.http.base.HttpStack;
-import com.shorty.core.http.multipart.MultipartEntity;
 import com.shorty.core.http.ssl.IgnoreCertTrustManager;
 
 import java.io.DataOutputStream;
@@ -183,10 +182,10 @@ public class HttpConnectionStack extends HttpStack {
         connection.addRequestProperty(HEADER_CONTENT_TYPE, action.getBodyContentType());
 
         if (action instanceof MultiPartAction) {
-            MultipartEntity multipartEntity = ((MultiPartAction) action).getMultipartEntity();
-            // 防止所有文件写到内存中
-            connection.setFixedLengthStreamingMode((int)multipartEntity.getContentLength());
-            multipartEntity.writeTo(connection.getOutputStream());
+//            MultipartEntity multipartEntity = ((MultiPartAction) action).getMultipartEntity();
+//            // 防止所有文件写到内存中
+//            connection.setFixedLengthStreamingMode((int)multipartEntity.getContentLength());
+//            multipartEntity.writeTo(connection.getOutputStream());
         } else {
             byte[] body = action.getBody();
             if (body != null) {
