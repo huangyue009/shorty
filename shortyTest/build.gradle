@@ -1,0 +1,36 @@
+apply plugin: 'java-library'
+
+def googleAPT = 'com.google.auto.service:auto-service:1.0-rc6'
+def gson = 'com.google.code.gson:gson:2.8.5'
+def javapoet = 'com.squareup:javapoet:1.11.1'
+def commons_lang3 = 'org.apache.commons:commons-lang3:3.5'
+def commons_collections4 = 'org.apache.commons:commons-collections4:4.1'
+
+def junit = 'junit:junit:4.12'
+
+if (rootProject.ext != null) {
+    def dependencieSetting = rootProject.ext.dependencies
+
+    googleAPT = dependencieSetting.googleAPT
+    gson = dependencieSetting.gson
+    javapoet = dependencieSetting.javapoet
+    commons_lang3 = dependencieSetting.commons_lang3
+    commons_collections4 = dependencieSetting.commons_collections4
+
+    junit = dependencieSetting.junit
+}
+
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    testImplementation junit
+    implementation junit
+    implementation gson
+    implementation googleAPT
+    implementation javapoet
+    implementation commons_lang3
+    implementation commons_collections4
+}
+
+sourceCompatibility = "8"
+targetCompatibility = "8"
