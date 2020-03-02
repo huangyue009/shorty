@@ -1,0 +1,66 @@
+[1/7] Building C object CMakeFiles/shortyEncrypt.dir/debugger.c.o
+[2/7] Building C object CMakeFiles/shortyEncrypt.dir/checksignature.c.o
+[3/7] Building C object CMakeFiles/shortyEncrypt.dir/check_emulator.c.o
+[4/7] Building C object CMakeFiles/shortyEncrypt.dir/ShortyEncrypt.c.o
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/ShortyEncrypt.c:79:50: warning: passing 'char *' to parameter of type 'jbyte *' (aka 'signed char *') converts between pointers to integer types with different sign [-Wpointer-sign]
+    (*env)->GetByteArrayRegion(env, msg, 0, len, in);
+                                                 ^~
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/ShortyEncrypt.c:95:60: warning: passing 'char *' to parameter of type 'const jbyte *' (aka 'const signed char *') converts between pointers to integer types with different sign [-Wpointer-sign]
+    (*env)->SetByteArrayRegion(env, result, 0, result_len, result_char);
+                                                           ^~~~~~~~~~~
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/ShortyEncrypt.c:121:50: warning: passing 'char *' to parameter of type 'jbyte *' (aka 'signed char *') converts between pointers to integer types with different sign [-Wpointer-sign]
+    (*env)->GetByteArrayRegion(env, msg, 0, len, in);
+                                                 ^~
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/ShortyEncrypt.c:137:60: warning: passing 'char *' to parameter of type 'const jbyte *' (aka 'const signed char *') converts between pointers to integer types with different sign [-Wpointer-sign]
+    (*env)->SetByteArrayRegion(env, result, 0, result_len, result_char);
+                                                           ^~~~~~~~~~~
+4 warnings generated.
+[5/7] Building C object CMakeFiles/shortyEncrypt.dir/md5.c.o
+[6/7] Building C object CMakeFiles/shortyEncrypt.dir/aes.c.o
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c:230:19: warning: incompatible pointer types passing 'MD5_CTX *' to parameter of type 'unsigned char *' [-Wincompatible-pointer-types]
+        MD5Encode(&md5, key, key_len);
+                  ^~~~
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/md5.h:55:31: note: passing argument to parameter 'output' here
+void MD5Encode(unsigned char *output, unsigned int *input, unsigned int len);
+                              ^
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c:230:25: warning: incompatible pointer types passing 'const char *' to parameter of type 'unsigned int *' [-Wincompatible-pointer-types]
+        MD5Encode(&md5, key, key_len);
+                        ^~~
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/md5.h:55:53: note: passing argument to parameter 'input' here
+void MD5Encode(unsigned char *output, unsigned int *input, unsigned int len);
+                                                    ^
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c:236:19: warning: incompatible pointer types passing 'MD5_CTX *' to parameter of type 'unsigned char *' [-Wincompatible-pointer-types]
+        MD5Encode(&md5, tempKey, strlen(tempKey));
+                  ^~~~
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/md5.h:55:31: note: passing argument to parameter 'output' here
+void MD5Encode(unsigned char *output, unsigned int *input, unsigned int len);
+                              ^
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c:236:25: warning: incompatible pointer types passing 'char [19]' to parameter of type 'unsigned int *' [-Wincompatible-pointer-types]
+        MD5Encode(&md5, tempKey, strlen(tempKey));
+                        ^~~~~~~
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/md5.h:55:53: note: passing argument to parameter 'input' here
+void MD5Encode(unsigned char *output, unsigned int *input, unsigned int len);
+                                                    ^
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c:495:16: warning: incompatible pointer types passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'state_t *' (aka 'uint8_t (*)[4][4]') [-Wincompatible-pointer-types]
+        Cipher(out + i * 16, ctx->RoundKey);
+               ^~~~~~~~~~~~
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c:424:29: note: passing argument to parameter 'state' here
+static void Cipher(state_t *state, const uint8_t *RoundKey) {
+                            ^
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c:498:9: warning: assigning to 'uint8_t *' (aka 'unsigned char *') from 'char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    out = (char *) realloc(out, inLength + 1);
+        ^ ~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c:501:12: warning: returning 'uint8_t *' (aka 'unsigned char *') from a function with result type 'char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    return out;
+           ^~~
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c:511:19: warning: incompatible pointer types passing 'uint8_t *' (aka 'unsigned char *') to parameter of type 'state_t *' (aka 'uint8_t (*)[4][4]') [-Wincompatible-pointer-types]
+        InvCipher(out + i * 16, ctx->RoundKey);
+                  ^~~~~~~~~~~~
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c:449:32: note: passing argument to parameter 'state' here
+static void InvCipher(state_t *state, const uint8_t *RoundKey) {
+                               ^
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c:517:12: warning: returning 'uint8_t *' (aka 'unsigned char *') from a function with result type 'char *' converts between pointers to integer types with different sign [-Wpointer-sign]
+    return out;
+           ^~~
+9 warnings generated.
+[7/7] Linking C shared library /Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/build/intermediates/cmake/debug/obj/arm64-v8a/libshortyEncrypt.so

@@ -1,0 +1,18 @@
+{
+  "buildFiles": [
+    "/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/build/cmake/android.toolchain.cmake",
+    "/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/build/cmake/platforms.cmake",
+    "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/Volumes/mac2/dev/android-sdk-macosx/cmake/3.10.2.4988404/bin/cmake --build /Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/debug/arm64-v8a --target clean"
+  ],
+  "libraries": {
+    "shortyEncrypt-Debug-arm64-v8a": {
+      "artifactName": "shortyEncrypt",
+      "buildCommand": "/Volumes/mac2/dev/android-sdk-macosx/cmake/3.10.2.4988404/bin/cmake --build /Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/debug/arm64-v8a --target shortyEncrypt",
+      "abi": "arm64-v8a",
+      "output": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/build/intermediates/cmake/debug/obj/arm64-v8a/libshortyEncrypt.so"
+    }
+  }
+}

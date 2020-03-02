@@ -1,23 +1,44 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="GradleMigrationSettings" migrationVersion="1" />
   <component name="GradleSettings">
     <option name="linkedExternalProjectsSettings">
       <GradleProjectSettings>
-        <compositeConfiguration>
-          <compositeBuild compositeDefinitionSource="SCRIPT" />
-        </compositeConfiguration>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
         <option name="distributionType" value="LOCAL" />
         <option name="externalProjectPath" value="$PROJECT_DIR$" />
         <option name="gradleHome" value="C:\Program Files\Android\Android Studio\gradle\gradle-2.10" />
         <option name="modules">
           <set>
             <option value="$PROJECT_DIR$" />
-            <option value="$PROJECT_DIR$/shortycore" />
-            <option value="$PROJECT_DIR$/shortysample" />
+            <option value="$PROJECT_DIR$/shortyLib/shortyEncrypt" />
+            <option value="$PROJECT_DIR$/shortyLib/shortyLogger" />
+            <option value="$PROJECT_DIR$/shortyLib/shortyTest" />
+            <option value="$PROJECT_DIR$/shortydemo" />
           </set>
         </option>
         <option name="resolveModulePerSourceSet" value="false" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
         <option name="testRunner" value="PLATFORM" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/shortyLib/shortyEncrypt" />
+        <option name="gradleHome" value="$USER_HOME$/Downloads/gradle-4.6" />
+        <option name="resolveModulePerSourceSet" value="false" />
+        <option name="useQualifiedModuleNames" value="true" />
+      </GradleProjectSettings>
+      <GradleProjectSettings>
+        <option name="delegatedBuild" value="false" />
+        <option name="testRunner" value="PLATFORM" />
+        <option name="distributionType" value="DEFAULT_WRAPPED" />
+        <option name="externalProjectPath" value="$PROJECT_DIR$/temp" />
+        <option name="modules">
+          <set>
+            <option value="$PROJECT_DIR$/temp" />
+          </set>
+        </option>
+        <option name="resolveModulePerSourceSet" value="false" />
       </GradleProjectSettings>
     </option>
   </component>

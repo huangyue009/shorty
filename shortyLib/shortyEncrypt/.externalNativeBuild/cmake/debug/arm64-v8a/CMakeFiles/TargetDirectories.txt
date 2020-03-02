@@ -1,0 +1,3 @@
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/rebuild_cache.dir
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/edit_cache.dir
+/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/debug/arm64-v8a/CMakeFiles/shortyEncrypt.dir

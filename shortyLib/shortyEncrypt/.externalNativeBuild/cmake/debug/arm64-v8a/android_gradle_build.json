@@ -1,0 +1,87 @@
+{
+  "stringTable": {
+    "0": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/debug/arm64-v8a",
+    "1": "--target=aarch64-none-linux-android21 --gcc-toolchain=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DshortyEncrypt_EXPORTS -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -Wformat -Werror=format-security -O0 -fno-limit-debug-info -fPIC"
+  },
+  "buildFiles": [
+    "/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/build/cmake/android.toolchain.cmake",
+    "/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/build/cmake/platforms.cmake",
+    "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/CMakeLists.txt"
+  ],
+  "cleanCommands": [
+    "/Volumes/mac2/dev/android-sdk-macosx/cmake/3.10.2.4988404/bin/cmake --build /Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/debug/arm64-v8a --target clean"
+  ],
+  "libraries": {
+    "shortyEncrypt-Debug-arm64-v8a": {
+      "buildCommand": "/Volumes/mac2/dev/android-sdk-macosx/cmake/3.10.2.4988404/bin/cmake --build /Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/debug/arm64-v8a --target shortyEncrypt",
+      "buildType": "debug",
+      "toolchain": "3788531779",
+      "abi": "arm64-v8a",
+      "artifactName": "shortyEncrypt",
+      "files": [
+        {
+          "src": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/ShortyEncrypt.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/checksignature.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/check_emulator.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/debugger.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "src": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/md5.c",
+          "flagsOrdinal": 1,
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "headers": [
+        {
+          "header": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.h",
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "header": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/checksignature.h",
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "header": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/check_emulator.h",
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "header": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/debugger.h",
+          "workingDirectoryOrdinal": 0
+        },
+        {
+          "header": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/md5.h",
+          "workingDirectoryOrdinal": 0
+        }
+      ],
+      "output": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/build/intermediates/cmake/debug/obj/arm64-v8a/libshortyEncrypt.so"
+    }
+  },
+  "toolchains": {
+    "3788531779": {
+      "cCompilerExecutable": "/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang"
+    }
+  },
+  "cFileExtensions": [
+    "c"
+  ],
+  "cppFileExtensions": []
+}

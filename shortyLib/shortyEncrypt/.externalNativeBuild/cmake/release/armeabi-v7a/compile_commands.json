@@ -1,0 +1,37 @@
+[
+{
+  "directory": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DshortyEncrypt_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/shortyEncrypt.dir/ShortyEncrypt.c.o   -c /Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/ShortyEncrypt.c",
+  "file": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/ShortyEncrypt.c"
+},
+
+{
+  "directory": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DshortyEncrypt_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/shortyEncrypt.dir/aes.c.o   -c /Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c",
+  "file": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/aes.c"
+},
+
+{
+  "directory": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DshortyEncrypt_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/shortyEncrypt.dir/checksignature.c.o   -c /Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/checksignature.c",
+  "file": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/checksignature.c"
+},
+
+{
+  "directory": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DshortyEncrypt_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/shortyEncrypt.dir/check_emulator.c.o   -c /Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/check_emulator.c",
+  "file": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/check_emulator.c"
+},
+
+{
+  "directory": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DshortyEncrypt_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/shortyEncrypt.dir/debugger.c.o   -c /Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/debugger.c",
+  "file": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/debugger.c"
+},
+
+{
+  "directory": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/.externalNativeBuild/cmake/release/armeabi-v7a",
+  "command": "/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/bin/clang --target=armv7-none-linux-androideabi16 --gcc-toolchain=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64 --sysroot=/Volumes/mac2/dev/android-sdk-macosx/ndk-bundle/toolchains/llvm/prebuilt/darwin-x86_64/sysroot -DshortyEncrypt_EXPORTS  -g -DANDROID -fdata-sections -ffunction-sections -funwind-tables -fstack-protector-strong -no-canonical-prefixes -D_FORTIFY_SOURCE=2 -march=armv7-a -mthumb -Wformat -Werror=format-security  -Oz -DNDEBUG  -fPIC   -o CMakeFiles/shortyEncrypt.dir/md5.c.o   -c /Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/md5.c",
+  "file": "/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/src/main/jni/md5.c"
+}
+]

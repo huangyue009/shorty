@@ -2,9 +2,14 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/git-shorty.iml" filepath="$PROJECT_DIR$/git-shorty.iml" group="shorty" />
+      <module fileurl="file://$PROJECT_DIR$/mac2-git-shorty.iml" filepath="$PROJECT_DIR$/mac2-git-shorty.iml" group="shorty" />
       <module fileurl="file://$PROJECT_DIR$/shorty.iml" filepath="$PROJECT_DIR$/shorty.iml" />
-      <module fileurl="file://$PROJECT_DIR$/shortyTest/shortyTest.iml" filepath="$PROJECT_DIR$/shortyTest/shortyTest.iml" />
-      <module fileurl="file://$PROJECT_DIR$/shortydemo/shortydemo.iml" filepath="$PROJECT_DIR$/shortydemo/shortydemo.iml" />
+      <module fileurl="file://$PROJECT_DIR$/shortyEncrypt/shorty-shortyEncrypt.iml" filepath="$PROJECT_DIR$/shortyEncrypt/shorty-shortyEncrypt.iml" group="shorty/shortyEncrypt" />
+      <module fileurl="file://$PROJECT_DIR$/shortyLib/shortyEncrypt/shortyEncrypt.iml" filepath="$PROJECT_DIR$/shortyLib/shortyEncrypt/shortyEncrypt.iml" group="shorty/shortyEncrypt" />
+      <module fileurl="file://$PROJECT_DIR$/shortyLib/shortyLogger/shortyLogger.iml" filepath="$PROJECT_DIR$/shortyLib/shortyLogger/shortyLogger.iml" group="shorty/shortyLogger" />
+      <module fileurl="file://$PROJECT_DIR$/shortyLib/shortyTest/shortyTest.iml" filepath="$PROJECT_DIR$/shortyLib/shortyTest/shortyTest.iml" group="shorty/shortyTest" />
+      <module fileurl="file://$PROJECT_DIR$/shortydemo/shortydemo.iml" filepath="$PROJECT_DIR$/shortydemo/shortydemo.iml" group="shorty/shortydemo" />
     </modules>
   </component>
 </project>

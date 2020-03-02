@@ -1,0 +1,8 @@
+# ninja log v5
+5	2712	1583144778	CMakeFiles/shortyEncrypt.dir/debugger.c.o	cd7c9888741bd0e6
+2	2774	1583144778	CMakeFiles/shortyEncrypt.dir/aes.c.o	29dad324b00cdb3e
+2	2775	1583144778	CMakeFiles/shortyEncrypt.dir/checksignature.c.o	bf3055217c6c4daa
+7	2775	1583144778	CMakeFiles/shortyEncrypt.dir/md5.c.o	b9422bb101f41367
+3	2776	1583144778	CMakeFiles/shortyEncrypt.dir/check_emulator.c.o	c8c34eead32e2b50
+0	2777	1583144778	CMakeFiles/shortyEncrypt.dir/ShortyEncrypt.c.o	7973a145b2164385
+2777	3313	1583144779	/Volumes/mac2/git/shorty/shortyLib/shortyEncrypt/build/intermediates/cmake/debug/obj/x86/libshortyEncrypt.so	fa165ee1e5242dae
