@@ -1,4 +1,4 @@
-include ':shortydemo', ':shortyTest',':shortLogger'
-project(':shortLogger').projectDir = new File('shortyLib/shortLogger')
+include ':shortydemo', ':shortyTest', ':shortyLogger'
+project(':shortyLogger').projectDir = new File('shortyLib/shortyLogger')
 include ':shortyEncrypt'
 project(':shortyEncrypt').projectDir = new File('shortyLib/shortyEncrypt')

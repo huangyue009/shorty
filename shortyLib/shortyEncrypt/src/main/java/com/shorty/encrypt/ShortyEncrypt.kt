@@ -1,7 +1,5 @@
 package com.shorty.encrypt
 
-import com.shorty.test.annotation.UnitTest
-
 
 class ShortyEncrypt private constructor() {
     companion object {
@@ -39,7 +37,6 @@ class ShortyEncrypt private constructor() {
         return aesDecrypt(msg, null)
     }
 
-    @UnitTest(intput = "#msg='aaaa', #key='121345'")
     @Synchronized
     external fun aesEncrypt(msg: ByteArray, key: String?): ByteArray
 

@@ -1,13 +1,17 @@
 apply plugin: 'com.android.library'
-apply plugin: 'kotlin-android'
-apply plugin: 'kotlin-android-extensions'
 
+def androidx_annotation = 'androidx.annotation:annotation:1.1.0'
+def guava = 'com.google.guava:guava:28.1-android'
 def minSdkVer = 14
 def compileSdkVer = 26
 
+
 if (rootProject.ext != null) {
     def appSetting = rootProject.ext.android
+    def dependencieSetting = rootProject.ext.dependencies
 
+    guava = dependencieSetting.guava
+    androidx_annotation = dependencieSetting.androidx_annotation
     compileSdkVer = appSetting.compileSdkVersion
     minSdkVer = appSetting.minSdkVersion
 }
@@ -18,32 +22,7 @@ android {
 
     defaultConfig {
         minSdkVersion minSdkVer
-
-        ndk {
-            moduleName "shortyEncrypt"
-        }
-
-        externalNativeBuild {
-            cmake {
-                cppFlags ""
-                abiFilters 'arm64-v8a', 'armeabi-v7a', "x86"
-            }
-
-        }
-
-        javaCompileOptions {
-            annotationProcessorOptions {
-                includeCompileClasspath true
-            }
-        }
-    }
-
-    externalNativeBuild {
-        cmake {
-            path "src/main/jni/CMakeLists.txt"
-            version "3.10.2"
-        }
-
+        versionCode = compileSdkVer
     }
 
     buildTypes {
@@ -62,6 +41,7 @@ android {
 
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+    implementation androidx_annotation
+    implementation guava
 }
 
