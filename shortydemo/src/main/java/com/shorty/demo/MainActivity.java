@@ -52,12 +52,20 @@ public class MainActivity extends AppCompatActivity {
                     public void run() {
                         ShortyEncrypt shortyEncrypt = ShortyEncrypt.Companion.getShortyEncrypt();
 //                String s = "no thread info and only 2 method";
-                        String e = shortyEncrypt.aesEncrypt("no thread info and only 2 method");
+                        byte[] e = shortyEncrypt.aesEncrypt("no thread info and only 2 method".getBytes());
 //                Logger.w("EncryptYUan = " + s);
-                        Logger.w("Encrypt = " + e);
+                        Logger.w("Encrypt = " + new String(e));
 
-                        String e2 = shortyEncrypt.aesDecrypt(e);
+                        String e2 = new String(shortyEncrypt.aesDecrypt(e));
                         Logger.w("Decrypt = " + e2);
+
+
+                        e = shortyEncrypt.aesEncrypt("no thread info and only 2 method1".getBytes(), "123456");
+//                Logger.w("EncryptYUan = " + s);
+                        Logger.w("Encrypt2 = " + new String(e));
+
+                        e2 = new String(shortyEncrypt.aesDecrypt(e, "123456"));
+                        Logger.w("Decrypt2 = " + e2);
 //                Logger.clearDiskLog(1);
                     }
                 } ).start();

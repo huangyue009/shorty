@@ -9,7 +9,7 @@ class ShortyEncrypt private constructor() {
             get() {
                 if(field == null){
                     field = ShortyEncrypt()
-                    field!!.setKey(null)
+                    field!!.setDefaultKey(null)
                 }
 
                 return field
@@ -29,14 +29,22 @@ class ShortyEncrypt private constructor() {
     /**
      * 设置秘钥 key, 秘钥是全局的
      */
-    external fun setKey(key: String?)
+    external fun setDefaultKey(key: String?)
+
+    fun aesEncrypt(msg: ByteArray): ByteArray{
+        return aesEncrypt(msg, null)
+    }
+
+    fun aesDecrypt(msg: ByteArray): ByteArray{
+        return aesDecrypt(msg, null)
+    }
 
     @UnitTest(intput = "#msg='aaaa', #key='121345'")
     @Synchronized
-    external fun aesEncrypt(msg: String): String
+    external fun aesEncrypt(msg: ByteArray, key: String?): ByteArray
 
     @Synchronized
-    external fun aesDecrypt(msg: String): String
+    external fun aesDecrypt(msg: ByteArray, key: String?): ByteArray
 
 
 }

@@ -252,7 +252,7 @@ void KeyExpansion(uint8_t *RoundKey, const uint8_t *Key) {
 
 
 void AES_init_ctx(struct AES_ctx *ctx, const char *key) {
-    int key_len =  key == NULL ? 0 : (int) strlen(key);
+    int key_len = key == NULL ? 0 : (int) strlen(key);
     if (key_len > 1) {
         MD5_CTX md5;
         MD5Init(&md5);
@@ -506,58 +506,42 @@ static void InvCipher(state_t *state, const uint8_t *RoundKey) {
 #if defined(ECB) && (ECB == 1)
 
 
-char *AES_ECB_encrypt(const struct AES_ctx *ctx, const char *in) {
-    int inLength = (int) strlen(in);//输入的长度
-    int remainder = inLength % 16;
+char *AES_ECB_encrypt(const struct AES_ctx *ctx, char *in, int inLength) {
     uint8_t *out;
-    int paddingInputLengt = 0;
     int group = inLength / 16;
     int size = 16 * (group + 1);
     out = (uint8_t *) malloc(size);
-    paddingInputLengt = size;
 
-    int dif = size - inLength;
-    int i;
-    for (i = 0; i < size; i++) {
-        if (i < inLength) {
-            out[i] = in[i];
-        } else {
-            if (remainder == 0) {
-                //刚好是16倍数,就填充16个16
-                out[i] = HEX[0];
-            } else {    //如果不足16位 少多少位就补几个几  如：少4为就补4个4 以此类推
-                out[i] = HEX[dif];
-            }
-        }
+    memcpy(out, in, inLength);
+    int dif = size - inLength - 1;
+    for (int i = inLength; i < size; i++) {
+        out[i] = HEX[dif];
     }
 
-    int count = paddingInputLengt / 16;
     //开始分段加密
-    for (i = 0; i < count; ++i) {
+    for (int i = 0; i <= group; i++) {
         // The next function call encrypts the PlainText with the Key using AES algorithm.
         Cipher(out + i * 16, ctx->RoundKey);
     }
     // Make sure we have enough space to add '\0' character at end.
-    out = (char *) realloc(out, size + 1);
+    out = (char *) realloc(out, inLength + 1);
     out[size] = '\0';
 
     return out;
 }
 
-char *AES_ECB_decrypt(const struct AES_ctx *ctx, const char *in) {
-    int inLength = (int) strlen(in);//输入的长度
-    char *out = malloc(inLength);
+char *AES_ECB_decrypt(const struct AES_ctx *ctx, char *in, int inLength) {
+    int group = inLength / 16;
+    uint8_t *out = (uint8_t *) malloc(inLength);
     memcpy(out, in, inLength);
 
-    int count = inLength / 16;
-    if (count <= 0) {
-        count = 1;
-    }
-    int i;
-    for (i = 0; i < count; ++i) {
+    for (int i = 0; i < group; i++) {
         // The next function call decrypts the PlainText with the Key using AES algorithm.
         InvCipher(out + i * 16, ctx->RoundKey);
     }
+
+    char buff_len = out[inLength - 1];
+    out[inLength-buff_len] = '\0';
 
     return out;
 }
@@ -587,7 +571,7 @@ void AES_CBC_encrypt_buffer(struct AES_ctx *ctx, uint8_t *buf, uint32_t length) 
         buf += AES_BLOCKLEN;
         //printf("Step %d - %d", i/16, i);
     }
-    /* store Iv in ctx for next call */
+    /* store Iv in mCtx for next call */
     memcpy(ctx->Iv, Iv, AES_BLOCKLEN);
 }
 

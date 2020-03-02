@@ -20,6 +20,12 @@ add_library( # Sets the name of the library.
         ShortyEncrypt.c
         aes.h
         aes.c
+        checksignature.h
+        checksignature.c
+        check_emulator.h
+        check_emulator.c
+        debugger.h
+        debugger.c
         md5.h
         md5.c)
 
