@@ -512,7 +512,7 @@ char *AES_ECB_decrypt(const struct AES_ctx *ctx, char *in, int inLength) {
     }
 
     char buff_len = out[inLength - 1];
-    out[inLength-buff_len] = '\0';
+    out[inLength - buff_len] = '\0';
 
     return out;
 }

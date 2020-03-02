@@ -5,7 +5,7 @@ class ShortyEncrypt private constructor() {
     companion object {
         private var instance: ShortyEncrypt? = null
             get() {
-                if(field == null){
+                if (field == null) {
                     field = ShortyEncrypt()
                     field!!.setDefaultKey(null)
                 }
@@ -18,7 +18,7 @@ class ShortyEncrypt private constructor() {
             System.loadLibrary("shortyEncrypt")
         }
 
-        fun getShortyEncrypt() :ShortyEncrypt{
+        fun getShortyEncrypt(): ShortyEncrypt {
             return instance!!
         }
     }
@@ -29,11 +29,11 @@ class ShortyEncrypt private constructor() {
      */
     external fun setDefaultKey(key: String?)
 
-    fun aesEncrypt(msg: ByteArray): ByteArray{
+    fun aesEncrypt(msg: ByteArray): ByteArray {
         return aesEncrypt(msg, null)
     }
 
-    fun aesDecrypt(msg: ByteArray): ByteArray{
+    fun aesDecrypt(msg: ByteArray): ByteArray {
         return aesDecrypt(msg, null)
     }
 

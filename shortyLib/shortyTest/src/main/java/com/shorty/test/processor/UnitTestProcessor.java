@@ -143,9 +143,9 @@ public class UnitTestProcessor extends BaseProcessor {
                     String key = param.substring(0, param.indexOf("="));
                     String value = param.substring(param.indexOf("=") + 1);
 
-                    if(key.contains(".")){
+                    if (key.contains(".")) {
                         String[] kv = key.split("\\.");
-                        if(!objParamsMap.containsKey(kv[0])){
+                        if (!objParamsMap.containsKey(kv[0])) {
                             objParamsMap.put(kv[0], new ArrayList<>());
                         }
                         objParamsMap.get(kv[0]).add(key);
@@ -186,18 +186,18 @@ public class UnitTestProcessor extends BaseProcessor {
                                     value);
                         }
                         // 对象 Object type
-                        else if(typeIndex > 8) {
-                            if(objParamsMap.containsKey(paramName)){
+                        else if (typeIndex > 8) {
+                            if (objParamsMap.containsKey(paramName)) {
                                 methodSpecBuild.addStatement("$T $N = new $T()", variableElement.asType(),
                                         paramName,
                                         variableElement.asType());
 
-                                List<String>  objParamsList = objParamsMap.get(paramName);
+                                List<String> objParamsList = objParamsMap.get(paramName);
 
-                                for (String inputParamName : objParamsList){
+                                for (String inputParamName : objParamsList) {
                                     String[] kv = inputParamName.split("\\.");
 
-                                    if(kv.length == 2) {
+                                    if (kv.length == 2) {
                                         String value = paramsMap.get(inputParamName);
                                         if (value.startsWith("'") && value.endsWith("'")) {
                                             value = value.substring(1, value.length() - 1);
@@ -228,6 +228,7 @@ public class UnitTestProcessor extends BaseProcessor {
 
     /**
      * 构建断言
+     *
      * @param element
      * @param methodSpecBuild
      * @param unitTest
@@ -247,12 +248,12 @@ public class UnitTestProcessor extends BaseProcessor {
                 String assertResult = unitTest.assertResult().replaceAll(" ", "");
                 if (element.getReturnType().getKind().isPrimitive() || (returnIndex >= 0 && returnIndex <= 7)) {
                     methodSpecBuild.addStatement("$T.assertTrue($N==$N)", Assert.class, RESULT, assertResult.substring(assertResult.indexOf("=") + 1));
-                } else if(returnIndex == 8){
+                } else if (returnIndex == 8) {
                     methodSpecBuild.addStatement("$T.assertEquals($N, $S)", Assert.class, RESULT, assertResult.substring(assertResult.indexOf("=") + 1));
                 } else {
                     String[] results = assertResult.split(",");
-                    for(String resultStr : results){
-                        if(resultStr.startsWith("#.")){
+                    for (String resultStr : results) {
+                        if (resultStr.startsWith("#.")) {
                             String[] tempKv = resultStr.split("=");
 
                             if (tempKv[1].startsWith("'") && tempKv[1].endsWith("'")) {

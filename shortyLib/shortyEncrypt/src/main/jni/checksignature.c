@@ -42,9 +42,11 @@ jint check_signature(JNIEnv *env, jobject thiz, jobject context) {
 
     jclass packageinfo_clazz = (*env)->GetObjectClass(env, packageInfo);
     jfieldID fieldID_signatures = (*env)->GetFieldID(env, packageinfo_clazz,
-                                                     "signatures", "[Landroid/content/pm/Signature;");
+                                                     "signatures",
+                                                     "[Landroid/content/pm/Signature;");
     jobjectArray signature_arr = (jobjectArray) (*env)->GetObjectField(env,
-                                                                       packageInfo, fieldID_signatures);
+                                                                       packageInfo,
+                                                                       fieldID_signatures);
     //Signature数组中取出第一个元素
     jobject signature = (*env)->GetObjectArrayElement(env, signature_arr, 0);
     //读signature的hashcode
