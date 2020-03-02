@@ -20,7 +20,7 @@ public @interface UnitTest {
      *
      * 例如 方法 public void test(A attr1, int attr2, String attr3, Array[] attr4)
      * 表达式为
-     * @UnitTest(input="$attr1.pamar1=1, $attr1.pamar2='abc', $attr2=1.1, $attr3='def', $attr4=[1,1.2,'rty']")
+     * @UnitTest(input="#attr1.pamar1=1, #attr1.pamar2='abc', #attr2=1.1, #attr3='def', #attr4=[1,1.2,'rty']")
      */
     String intput() default "";
 
@@ -31,7 +31,7 @@ public @interface UnitTest {
      *   @UnitTest(assertResult="$=1")
      *
      *   对象的参数$.pamar1 pamar1为对象内的参数名
-     *@UnitTest(assertResult="$.pamar1=1, $.pamar2='aaa'")
+     *@UnitTest(assertResult="#.pamar1=1, #.pamar2='aaa'")
      * @return
      */
     String assertResult() default "";

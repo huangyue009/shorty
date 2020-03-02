@@ -138,7 +138,7 @@ public class UnitTestProcessor extends BaseProcessor {
                 HashMap<String, String> paramsMap = new HashMap<>();
                 HashMap<String, List<String>> objParamsMap = new HashMap<>();
                 String input = unitTest.intput().substring(1).replaceAll(" ", "");
-                String[] inputs = input.split(",\\$");
+                String[] inputs = input.split(",#");
                 for (String param : inputs) {
                     String key = param.substring(0, param.indexOf("="));
                     String value = param.substring(param.indexOf("=") + 1);
@@ -252,7 +252,7 @@ public class UnitTestProcessor extends BaseProcessor {
                 } else {
                     String[] results = assertResult.split(",");
                     for(String resultStr : results){
-                        if(resultStr.startsWith("$.")){
+                        if(resultStr.startsWith("#.")){
                             String[] tempKv = resultStr.split("=");
 
                             if (tempKv[1].startsWith("'") && tempKv[1].endsWith("'")) {

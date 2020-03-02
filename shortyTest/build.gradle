@@ -8,6 +8,7 @@ def commons_collections4 = 'org.apache.commons:commons-collections4:4.1'
 
 def junit = 'junit:junit:4.12'
 
+
 if (rootProject.ext != null) {
     def dependencieSetting = rootProject.ext.dependencies
 
@@ -18,6 +19,7 @@ if (rootProject.ext != null) {
     commons_collections4 = dependencieSetting.commons_collections4
 
     junit = dependencieSetting.junit
+
 }
 
 

@@ -1,0 +1,75 @@
+apply plugin: 'com.android.library'
+apply plugin: 'kotlin-android'
+apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
+
+def minSdkVer = 14
+def compileSdkVer = 26
+def junit = 'junit:junit:4.12'
+
+if (rootProject.ext != null) {
+    def appSetting = rootProject.ext.android
+    def dependencieSetting = rootProject.ext.dependencies
+
+    junit = dependencieSetting.junit
+    compileSdkVer = appSetting.compileSdkVersion
+    minSdkVer = appSetting.minSdkVersion
+}
+
+
+android {
+    compileSdkVersion compileSdkVer
+
+    defaultConfig {
+        minSdkVersion minSdkVer
+
+        ndk {
+            moduleName "shortyEncrypt"
+        }
+
+        externalNativeBuild {
+            cmake {
+                cppFlags ""
+                abiFilters 'arm64-v8a', 'armeabi-v7a', "x86"
+            }
+
+        }
+
+        javaCompileOptions {
+            annotationProcessorOptions {
+                includeCompileClasspath true
+            }
+        }
+    }
+
+    externalNativeBuild {
+        cmake {
+            path "src/main/jni/CMakeLists.txt"
+            version "3.10.2"
+        }
+
+    }
+
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+    productFlavors {
+    }
+    compileOptions {
+        sourceCompatibility = 1.8
+        targetCompatibility = 1.8
+    }
+}
+
+dependencies {
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
+
+    testImplementation junit
+    kapt project(path: ':shortyTest')
+    implementation project(path: ':shortyTest')
+}
+

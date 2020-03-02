@@ -54,10 +54,8 @@ dependencies {
     annotationProcessor project(path: ':shortyTest')
     implementation 'com.google.android.material:material:1.1.0'
     implementation project(path: ':shortyTest')
+    implementation project(path: ':shortLogger')
+    implementation project(path: ':shortyEncrypt')
     // Optional, if you use support library fragments:
 //    debugImplementation 'com.squareup.leakcanary:leakcanary-support-fragment:1.6.3'
-}
-
-ext {
-
 }

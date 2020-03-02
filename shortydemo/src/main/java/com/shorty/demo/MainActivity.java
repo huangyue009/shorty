@@ -1,6 +1,7 @@
 package com.shorty.demo;
 
 import android.app.Activity;
+import android.os.AsyncTask;
 import android.os.Bundle;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -13,10 +14,24 @@ import android.view.MenuItem;
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
+import com.shorty.encrypt.ShortyEncrypt;
+import com.shorty.logger.Logger;
+
+
+class SingletonDemo {
+    private static SingletonDemo instance=new SingletonDemo();
+    private SingletonDemo(){
+
+    }
+    public static SingletonDemo getInstance(){
+        return instance;
+    }
+}
 
 @Route(path = "/demo/main")
 public class MainActivity extends AppCompatActivity {
     public static Activity activity;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -32,9 +47,32 @@ public class MainActivity extends AppCompatActivity {
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
                         .setAction("Action", null).show();
+                new Thread(new Runnable() {
+                    @Override
+                    public void run() {
+                        ShortyEncrypt shortyEncrypt = ShortyEncrypt.Companion.getShortyEncrypt();
+//                String s = "no thread info and only 2 method";
+                        String e = shortyEncrypt.aesEncrypt("no thread info and only 2 method");
+//                Logger.w("EncryptYUan = " + s);
+                        Logger.w("Encrypt = " + e);
+
+                        String e2 = shortyEncrypt.aesDecrypt(e);
+                        Logger.w("Decrypt = " + e2);
+//                Logger.clearDiskLog(1);
+                    }
+                } ).start();
             }
         });
+        Logger.w("no thread info and only 1 method");
 
+
+        new AsyncTask() {
+            @Override
+            protected Object doInBackground(Object[] objects) {
+                Logger.w("no thread info and only 2 method");
+                return null;
+            }
+        }.execute();
     }
 
     @Override
