@@ -22,7 +22,6 @@ android {
 
     defaultConfig {
         minSdkVersion minSdkVer
-        versionCode = compileSdkVer
     }
 
     buildTypes {

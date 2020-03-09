@@ -1,37 +1,36 @@
 package com.shorty.demo;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
-
-import androidx.appcompat.app.AppCompatActivity;
-import androidx.appcompat.widget.Toolbar;
-
-import android.view.View;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
-import com.shorty.encrypt.ShortyEncrypt;
 import com.shorty.logger.Logger;
 
+import androidx.appcompat.app.AppCompatActivity;
+import androidx.appcompat.widget.Toolbar;
 
-class SingletonDemo {
-    private static SingletonDemo instance=new SingletonDemo();
-    private SingletonDemo(){
-
-    }
-    public static SingletonDemo getInstance(){
-        return instance;
-    }
-}
 
 @Route(path = "/demo/main")
 public class MainActivity extends AppCompatActivity {
     public static Activity activity;
-
+    /**
+     * 从flutter这边传递数据到Android
+     */
+    public static final String FLUTTER_TO_ANDROID_CHANNEL = "com.shorty.demo.toandroid/plugin";
+    /**
+     * 从Android这边传递数据到flutter
+     */
+    public static final String ANDROID_TO_FLUTTER_CHANNEL = "com.shorty.demo.toflutter/plugin";
+    /**
+     * 应用场景：以前两种都不一样，互相调用
+     */
+    public static final String ANDROID_AND_FLUTTER_CHANNEL = "com.shorty.demo.androidAndFlutter/plugin";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -41,35 +40,41 @@ public class MainActivity extends AppCompatActivity {
         Toolbar toolbar = findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
+        findViewById(R.id.fab2).setOnClickListener(view -> {
+//            ARouter.getInstance().build("/test2/main").navigation();
+            startActivity(new Intent(MainActivity.this, com.example.fluttertest2.host.MainActivity.class));
+        });
+
         FloatingActionButton fab = findViewById(R.id.fab);
-        fab.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
-                new Thread(new Runnable() {
-                    @Override
-                    public void run() {
-                        ShortyEncrypt shortyEncrypt = ShortyEncrypt.Companion.getShortyEncrypt();
-//                String s = "no thread info and only 2 method";
-                        byte[] e = shortyEncrypt.aesEncrypt("no thread info and only 2 method".getBytes());
-//                Logger.w("EncryptYUan = " + s);
-                        Logger.w("Encrypt = " + new String(e));
+        fab.setOnClickListener(view -> {
+            Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
+                    .setAction("Action", null).show();
 
-                        String e2 = new String(shortyEncrypt.aesDecrypt(e));
-                        Logger.w("Decrypt = " + e2);
-
-
-                        e = shortyEncrypt.aesEncrypt("no thread info and only 2 method1".getBytes(), "123456");
-//                Logger.w("EncryptYUan = " + s);
-                        Logger.w("Encrypt2 = " + new String(e));
-
-                        e2 = new String(shortyEncrypt.aesDecrypt(e, "123456"));
-                        Logger.w("Decrypt2 = " + e2);
-//                Logger.clearDiskLog(1);
-                    }
-                } ).start();
-            }
+//                startActivity(new Intent(MainActivity.this, com.example.fluttermodule.host.MainActivity.class));
+            // 1. 普通跳转
+//                ARouter.getInstance().build("/test/activity").navigation();
+//                new Thread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        ShortyEncrypt shortyEncrypt = ShortyEncrypt.Companion.getShortyEncrypt();
+////                String s = "no thread info and only 2 method";
+//                        byte[] e = shortyEncrypt.aesEncrypt("no thread info and only 2 method".getBytes());
+////                Logger.w("EncryptYUan = " + s);
+//                        Logger.w("Encrypt = " + new String(e));
+//
+//                        String e2 = new String(shortyEncrypt.aesDecrypt(e));
+//                        Logger.w("Decrypt = " + e2);
+//
+//
+//                        e = shortyEncrypt.aesEncrypt("no thread info and only 2 method1".getBytes(), "123456");
+////                Logger.w("EncryptYUan = " + s);
+//                        Logger.w("Encrypt2 = " + new String(e));
+//
+//                        e2 = new String(shortyEncrypt.aesDecrypt(e, "123456"));
+//                        Logger.w("Decrypt2 = " + e2);
+////                Logger.clearDiskLog(1);
+//                    }
+//                } ).start();
         });
         Logger.w("no thread info and only 1 method");
 

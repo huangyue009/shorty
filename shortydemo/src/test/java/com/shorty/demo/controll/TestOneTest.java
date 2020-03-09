@@ -21,7 +21,7 @@ public class TestOneTest {
   }
 
   @Test
-  public void test2() {
+  public void test2() throws Exception {
     TestEntry test2 = new TestEntry();
     test2.string3 = "aaa";
     test2.anInt1 = 1;
@@ -33,7 +33,7 @@ public class TestOneTest {
   }
 
   @Test
-  public void test3() {
+  public void test3() throws Exception {
     TestEntry test2 = new TestEntry();
     test2.string3 = "aaa";
     test2.anInt1 = 1;
@@ -43,12 +43,12 @@ public class TestOneTest {
   }
 
   @Test
-  public void test() {
+  public void test() throws Exception {
     instance.test();
   }
 
   @Test
-  public void test8787() {
+  public void test6017() throws Exception {
     int test2 = 1;
     String test = "aaa";
     int result = instance.test(test2,test);

@@ -19,6 +19,7 @@ import org.junit.Test;
 
 import java.io.File;
 import java.io.IOException;
+import java.lang.reflect.Constructor;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -30,6 +31,7 @@ import javax.annotation.processing.RoundEnvironment;
 import javax.annotation.processing.SupportedAnnotationTypes;
 import javax.lang.model.element.Element;
 import javax.lang.model.element.ExecutableElement;
+import javax.lang.model.element.Modifier;
 import javax.lang.model.element.PackageElement;
 import javax.lang.model.element.TypeElement;
 import javax.lang.model.element.VariableElement;
@@ -91,6 +93,7 @@ public class UnitTestProcessor extends BaseProcessor {
                 UnitTestEntry unitTestEntry = typeSpecHashMap.get(classType.toString());
                 String methodName = unitTestEntry.getMethodSpecName(element.getSimpleName().toString());
                 MethodSpec.Builder methodSpecBuild = MethodSpec.methodBuilder(methodName)
+                        .addException(Exception.class)
                         .addAnnotation(Test.class)
                         .addModifiers(PUBLIC);
 
@@ -278,12 +281,32 @@ public class UnitTestProcessor extends BaseProcessor {
 
     private TypeSpec createTestType(Element typeElement, Iterable<MethodSpec> methodSpecs) {
         FieldSpec instanceFieldSpec = FieldSpec.builder(TypeName.get(typeElement.asType()), INSTANCE).addModifiers(PRIVATE).build();
-        MethodSpec methodBefore = MethodSpec.methodBuilder(TEST_SET_UP)
+        MethodSpec.Builder methodBeforeBuild = MethodSpec.methodBuilder(TEST_SET_UP)
                 .addAnnotation(Before.class)
                 .addModifiers(PUBLIC)
-                .addException(Exception.class)
-                .addStatement(INSTANCE + " = new $T()", typeElement.asType())
-                .build();
+                .addException(Exception.class);
+
+        List<Element> typeElements = (List<Element>) typeElement.getEnclosedElements();
+        for(Element typeElem : typeElements){
+            if(typeElem instanceof ExecutableElement && "<init>".equals(typeElem.getSimpleName().toString())){
+                ExecutableElement initM = (ExecutableElement) typeElem;
+                if(initM.getParameters() != null && initM.getParameters().size() > 0){
+                    continue;
+                }
+                if(initM.getModifiers().iterator().hasNext()){
+                    Modifier modifier = initM.getModifiers().iterator().next();
+                    if(modifier != null && PUBLIC.ordinal() == modifier.ordinal()){
+                        methodBeforeBuild.addStatement(INSTANCE + " = new $T()", typeElement.asType());
+                    } else {
+                        methodBeforeBuild.addStatement("$T clazz = $T.class", Class.class, typeElement.asType());
+                        methodBeforeBuild.addStatement("$T cons = clazz.getDeclaredConstructor(null)", Constructor.class);
+                        methodBeforeBuild.addStatement("cons.setAccessible(true)");
+                        methodBeforeBuild.addStatement(INSTANCE + " = ($T)cons.newInstance(null)", typeElement.asType());
+                    }
+                }
+            }
+        }
+        MethodSpec methodBefore = methodBeforeBuild.build();
 
         MethodSpec methodAfter = MethodSpec.methodBuilder(TEST_TEAR_DOWN)
                 .addAnnotation(After.class)
