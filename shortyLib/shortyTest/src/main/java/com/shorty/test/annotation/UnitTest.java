@@ -35,4 +35,10 @@ public @interface UnitTest {
      * @UnitTest(assertResult="#.pamar1=1, #.pamar2='aaa'")
      */
     String assertResult() default "";
+
+    /**
+     * 是否异步方法测试
+     * @return
+     */
+    boolean aync() default false;
 }

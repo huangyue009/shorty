@@ -80,6 +80,7 @@ public class UnitTestProcessor extends BaseProcessor {
         return false;
     }
 
+    //add aync
     private boolean executeUnitTestFile(Set<? extends Element> routeElements) throws Exception {
         if (CollectionUtils.isNotEmpty(routeElements)) {
             HashMap<String, UnitTestEntry> typeSpecHashMap = new HashMap<>();
@@ -108,7 +109,10 @@ public class UnitTestProcessor extends BaseProcessor {
                 PackageElement packageElement = (PackageElement) unitTestEntry.classElement.getEnclosingElement();
                 TypeSpec typeSpec = createTestType(unitTestEntry.classElement, unitTestEntry.getMethodSpecs());
                 javaFile = JavaFile.builder(packageElement.getQualifiedName().toString(), typeSpec).build();
-                javaFile.writeTo(getTestDirPath(unitTestEntry.classElement));
+                File file = getTestDirPath(unitTestEntry.classElement);
+                if(!file.exists()) {
+                    javaFile.writeTo(file);
+                }
 
                 unitTestEntry.clear();
             }
@@ -157,9 +161,14 @@ public class UnitTestProcessor extends BaseProcessor {
                 }
 
                 StringBuilder paramesKey = new StringBuilder();
-                Object[] paramesValue = new Object[variableElements.size() + 2];
+                Object[] paramesValue = null;
                 int i = 0;
-                paramesValue[i++] = element.getReturnType();
+                if("void".equals(element.getReturnType().toString().toLowerCase())){
+                    paramesValue = new Object[variableElements.size() + 1];
+                } else {
+                    paramesValue = new Object[variableElements.size() + 2];
+                    paramesValue[i++] = element.getReturnType();
+                }
                 paramesValue[i++] = element.getSimpleName();
 
 
@@ -240,7 +249,7 @@ public class UnitTestProcessor extends BaseProcessor {
      */
     private void buildAssert(ExecutableElement element, MethodSpec.Builder methodSpecBuild, UnitTest unitTest, StringBuilder paramesKey, Object[] paramesValue) {
         if ("void".equals(element.getReturnType().toString().toLowerCase())) {
-            methodSpecBuild.addStatement(String.format("%s.$N(%s)",
+            methodSpecBuild.addStatement(String.format("%s.$N(%s)", INSTANCE,
                     paramesKey.toString().substring(0, paramesKey.length() - 1)), paramesValue);
         } else {
             methodSpecBuild.addStatement(String.format("$T %s = %s.$N(%s)", RESULT, INSTANCE,

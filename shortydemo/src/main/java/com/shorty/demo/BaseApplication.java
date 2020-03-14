@@ -16,4 +16,10 @@ public class BaseApplication extends FlutterApplication {
         }
         ARouter.init(this);
     }
+
+    @Override
+    public void onTerminate() {
+        super.onTerminate();
+        ARouter.getInstance().destroy();
+    }
 }

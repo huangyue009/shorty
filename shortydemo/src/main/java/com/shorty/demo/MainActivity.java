@@ -1,13 +1,13 @@
 package com.shorty.demo;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.Menu;
 import android.view.MenuItem;
 
 import com.alibaba.android.arouter.facade.annotation.Route;
+import com.alibaba.android.arouter.launcher.ARouter;
 import com.google.android.material.floatingactionbutton.FloatingActionButton;
 import com.google.android.material.snackbar.Snackbar;
 import com.shorty.logger.Logger;
@@ -41,8 +41,8 @@ public class MainActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
 
         findViewById(R.id.fab2).setOnClickListener(view -> {
-//            ARouter.getInstance().build("/test2/main").navigation();
-            startActivity(new Intent(MainActivity.this, com.example.fluttertest2.host.MainActivity.class));
+            ARouter.getInstance().build("/test2/main").navigation();
+//            startActivity(new Intent(MainActivity.this, com.example.fluttertest2.host.MainActivity.class));
         });
 
         FloatingActionButton fab = findViewById(R.id.fab);
