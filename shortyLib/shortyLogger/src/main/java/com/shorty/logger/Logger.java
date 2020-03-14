@@ -163,6 +163,10 @@ public final class Logger {
         printer.e(throwable, message, args);
     }
 
+    public static void e(@Nullable Throwable throwable) {
+        printer.e(throwable, throwable.getMessage(), "");
+    }
+
     public static void i(@NonNull String message, @Nullable Object... args) {
         printer.i(message, args);
     }

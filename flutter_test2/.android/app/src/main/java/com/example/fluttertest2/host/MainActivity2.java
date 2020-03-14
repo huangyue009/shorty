@@ -8,7 +8,7 @@ import io.flutter.app.FlutterActivity;
 import io.flutter.plugins.GeneratedPluginRegistrant;
 
 @Route(path = "/test2/main")
-public class MainActivity extends FlutterActivity {
+public class MainActivity2 extends FlutterActivity {
   @Override
   protected void onCreate(Bundle savedInstanceState) {
     super.onCreate(savedInstanceState);

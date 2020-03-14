@@ -48,7 +48,7 @@ public class TestOneTest {
   }
 
   @Test
-  public void test6017() throws Exception {
+  public void test6051() throws Exception {
     int test2 = 1;
     String test = "aaa";
     int result = instance.test(test2,test);

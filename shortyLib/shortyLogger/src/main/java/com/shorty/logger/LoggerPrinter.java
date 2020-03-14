@@ -53,9 +53,13 @@ class LoggerPrinter implements Printer {
     LoggerPrinter() {
         String folder = Logger.getFolder();
         if (folder == null || "".equals(folder)) {
-            String diskPath = Environment.getExternalStorageDirectory().getAbsolutePath();
-            folder = diskPath + File.separatorChar + "logger";
-            Logger.setLogFolder(folder);
+            try {
+                String diskPath = Environment.getExternalStorageDirectory().getAbsolutePath();
+                folder = diskPath + File.separatorChar + "logger";
+                Logger.setLogFolder(folder);
+            }catch (Exception e){
+                e.printStackTrace();
+            }
         }
 
 
